@@ -1,12 +1,28 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { NavbarComponent } from "./components/shared/navbar/navbar.component";
+import { filter } from 'rxjs';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterModule, NavbarComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Wavelyx';
+  currentRoute: string = '';
+  title="Wavelyx"
+  private router = inject(Router)
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentRoute = event.urlAfterRedirects;
+      });
+  }
 }

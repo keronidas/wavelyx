@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-morado{
+    @apply bg-[#5b6ffb];
+}
+.text-morado{
+    @apply text-[#5b6ffb];
+}
+.border-morado{
+    @apply border-[#5b6ffb];
+}
