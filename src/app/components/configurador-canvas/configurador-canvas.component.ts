@@ -12,7 +12,7 @@ import * as THREE from 'three';
 import { OrbitControls } from '@avatsaev/three-orbitcontrols-ts';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { AmbientLight, DirectionalLight } from 'three';
-import * as dat from 'dat.gui'; 
+import * as dat from 'dat.gui';
 
 @Component({
   selector: 'configurador-canvas',
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   // Variables para el plano
   plane: THREE.Mesh | undefined;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit(): void {
     // Solo continuar si estamos en el navegador
@@ -50,12 +50,22 @@ export class AppComponent implements OnInit {
 
       // Crear la escena
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color('#93c5fd'); // Fondo blanco
+      this.scene.background = new THREE.Color('white'); // Fondo blanco
 
       // Luz ambiental (para iluminar el modelo)
       const ambientLight = new AmbientLight(0x404040, 5); // Luz suave
       this.scene.add(ambientLight);
-
+      const directionalLights = [];
+      for (let i = 0; i < 8; i++) {
+        const light = new THREE.DirectionalLight(0xffffff, 1);
+        light.position.set(
+          i % 2 === 0 ? 4 : -4,
+          i < 4 ? 5 : -4,
+          i % 2 === 0 ? 4 : -4
+        );
+        directionalLights.push(light);
+        this.scene.add(light);
+      }
       // Luz direccional (luz principal)
       this.directionalLightFront.position.set(2, 2, 2).normalize();
       this.directionalLightFront.castShadow = true; // Habilitar sombras en la luz direccional
@@ -81,7 +91,7 @@ export class AppComponent implements OnInit {
       controls.dampingFactor = 0.1;
       controls.rotateSpeed = 0.05;
       controls.zoomSpeed = 0.8;
-      
+
       controls.minPolarAngle = Math.PI / 2.15; // Limita la rotación hacia arriba
       controls.maxPolarAngle = Math.PI / 2.15; // Limita la rotación hacia abajo
 
@@ -135,40 +145,39 @@ export class AppComponent implements OnInit {
               console.log('Imagen aplicada correctamente');
 
               // Crear el GUI una vez que el plano esté disponible
-              const gui = new dat.GUI();
+              // const gui = new dat.GUI();
 
-              const guiContainer = document.querySelector('.dg') as HTMLElement;
-              if (guiContainer) {
-                guiContainer.style.position = 'absolute';
-                guiContainer.style.top = '100px'; // Cambia la posición vertical
-                guiContainer.style.left = '20px'; // Cambia la posición horizontal
-              }
+              // const guiContainer = document.querySelector('.dg') as HTMLElement;
+              // if (guiContainer) {
+              //   guiContainer.style.position = 'absolute';
+              //   guiContainer.style.top = '100px'; // Cambia la posición vertical
+              //   guiContainer.style.left = '20px'; // Cambia la posición horizontal
+              // }
 
               // Crea un objeto para el color, que será modificado por el GUI
 
               // Crea una carpeta para el móvil y añade el selector de color
-              gui.addColor(this.debugObject, 'color').onChange(() => {
-                this.nuevoMaterial.color.set(this.debugObject.color);
-                this.directionalLightBack.color.set(this.debugObject.color);
-                this.directionalLightFront.color.set(this.debugObject.color);
-              });
-              gui
-                .add(this.directionalLightFront, 'intensity', 0, 10)
-                .name('Luz frontal');
-              gui
-                .add(this.directionalLightBack, 'intensity', 0, 10)
-                .name('Luz trasera');
-              gui
-                .add(this.directionalLightBack.position, 'x', -10, 10)
-                .name('Luz trasera X');
-              gui
-                .add(this.directionalLightBack.position, 'y', -10, 10)
-                .name('Luz trasera Y');
-              gui
-                .add(this.directionalLightBack.position, 'z', -10, 10)
-                .name('Luz trasera Z');
+              // gui.addColor(this.debugObject, 'color').onChange(() => {
+              //   this.nuevoMaterial.color.set(this.debugObject.color);
+              //   this.directionalLightBack.color.set(this.debugObject.color);
+              //   this.directionalLightFront.color.set(this.debugObject.color);
+              // });
+              // gui
+              //   .add(this.directionalLightFront, 'intensity', 0, 10)
+              //   .name('Luz frontal');
+              // gui
+              //   .add(this.directionalLightBack, 'intensity', 0, 10)
+              //   .name('Luz trasera');
+              // gui
+              //   .add(this.directionalLightBack.position, 'x', -10, 10)
+              //   .name('Luz trasera X');
+              // gui
+              //   .add(this.directionalLightBack.position, 'y', -10, 10)
+              //   .name('Luz trasera Y');
+              // gui
+              //   .add(this.directionalLightBack.position, 'z', -10, 10)
+              //   .name('Luz trasera Z');
 
-              gui.open();
             },
             undefined, // Progreso (si lo necesitas)
             (error) => {
