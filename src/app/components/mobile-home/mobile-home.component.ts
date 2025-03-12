@@ -85,9 +85,9 @@ export class MobileHomeComponent implements AfterViewInit {
 
     const animate = () => {
       requestAnimationFrame(animate);
+      this.model.rotation.y += 0.01
       controls.update();
       this.renderer.render(this.scene, camera);
-      this.model.rotation.y += 0.01
     };
     animate();
   }

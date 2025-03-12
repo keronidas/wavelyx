@@ -11,6 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 import * as THREE from 'three';
 import { OrbitControls } from '@avatsaev/three-orbitcontrols-ts';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { AmbientLight, DirectionalLight } from 'three';
 import * as dat from 'dat.gui';
 
@@ -50,7 +51,15 @@ export class AppComponent implements OnInit {
 
       // Crear la escena
       this.scene = new THREE.Scene();
-      this.scene.background = new THREE.Color('white'); // Fondo blanco
+
+      // FOndo
+
+      const rgbeLoader = new RGBELoader();
+      rgbeLoader.load("assets/environmentMap/water_2.hdr",(environmentMap)=>{
+        environmentMap.mapping=THREE.EquirectangularReflectionMapping;
+        this.scene.background=environmentMap;
+        this.scene.environment=environmentMap;
+      })
 
       // Luz ambiental (para iluminar el modelo)
       const ambientLight = new AmbientLight(0x404040, 5); // Luz suave
