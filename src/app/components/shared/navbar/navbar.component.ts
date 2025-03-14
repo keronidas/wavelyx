@@ -13,4 +13,5 @@ import { RouterLink } from '@angular/router';
 export class NavbarComponent {
   private navegation = inject(RoutingDirective);
   public rutasPagina = this.navegation.rutasPagina;
+  public rutasIcono = this.navegation.rutasIconos;
 }

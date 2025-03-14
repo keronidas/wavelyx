@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { ImageComparisonComponentComponent } from "../../../components/shared/image-comparison-component/image-comparison-component.component";
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [RouterLink, ImageComparisonComponentComponent],
+  imports: [],
   templateUrl: './catalogo.component.html',
   styleUrl: './catalogo.component.scss'
 })
