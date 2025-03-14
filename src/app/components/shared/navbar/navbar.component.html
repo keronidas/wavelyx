@@ -1,16 +1,11 @@
-<div class="w-full flex flex-col justify-center items-center">
-  <div class="w-full p-2 flex flex-row justify-evenly z-30">
+<div class="w-screen flex justify-center items-center shadow-lg fixed z-30 ">
+  <div class="w-full flex flex-row justify-evenly items-center bg-white z-30 min-h-12">
+    <img src="assets/images/logo.svg" alt="logo" class="h-12">
     @for(ruta of rutasPagina; track ruta){
-    <a
-      href="{{ ruta.url }}"
-      class="p-2 text-slate-800 text-2xl font-semibold uppercase hover:underline hover:decoration-2 hover:decoration-slate-800 hover:underline-offset-8 active:underline active:decoration-2 active:decoration-slate-800 active:underline-offset-8"
-    >
+    <a [routerLink]=" ruta.url" RouterLinkActive="underline"
+      class=" text-slate-800 text-md font-semibold uppercase hover:underline hover:decoration-2 hover:decoration-slate-800 hover:underline-offset-8 active:underline active:decoration-2 active:decoration-slate-800 active:underline-offset-8">
       {{ ruta.nombre }}
     </a>
     }
-  </div>
-  <div class="flex flex-row w-full justify-center items-center">
-    <div class="w-[5%] h-4 border border-slate-800 bg-slate-800"></div>
-    <div class="w-[90%] border border-slate-800"></div>
   </div>
 </div>

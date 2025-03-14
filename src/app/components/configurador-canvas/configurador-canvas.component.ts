@@ -14,6 +14,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { AmbientLight, DirectionalLight } from 'three';
 import * as dat from 'dat.gui';
+import { color } from 'three/webgpu';
 
 @Component({
   selector: 'configurador-canvas',
@@ -51,15 +52,17 @@ export class AppComponent implements OnInit {
 
       // Crear la escena
       this.scene = new THREE.Scene();
+      // Crear un color de fondo blanco
+      this.scene.background = new THREE.Color('#e5e7eb'); // Usar THREE.Color
 
       // FOndo
 
-      const rgbeLoader = new RGBELoader();
-      rgbeLoader.load("assets/environmentMap/water_2.hdr",(environmentMap)=>{
-        environmentMap.mapping=THREE.EquirectangularReflectionMapping;
-        this.scene.background=environmentMap;
-        this.scene.environment=environmentMap;
-      })
+      // const rgbeLoader = new RGBELoader();
+      // rgbeLoader.load("assets/environmentMap/arena_playa.hdr", (environmentMap) => {
+      //   environmentMap.mapping = THREE.EquirectangularReflectionMapping;
+      //   this.scene.background = environmentMap;
+      //   this.scene.environment = environmentMap;
+      // })
 
       // Luz ambiental (para iluminar el modelo)
       const ambientLight = new AmbientLight(0x404040, 5); // Luz suave
@@ -107,92 +110,28 @@ export class AppComponent implements OnInit {
       // Cargar el modelo 3D
       const gltfLoader = new GLTFLoader();
       gltfLoader.load(
-        '/assets/models/phoneRed.glb', // Ruta del modelo
+        '/assets/models/vibex200.glb',
         (gltf) => {
           const model = gltf.scene;
-          model.scale.set(2, 2, 2); // Escala el modelo
-
-          // Ajustar materiales del modelo
-          model.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-              if (child.material && child.material.color) {
-                child.material = this.nuevoMaterial;
-                child.castShadow = true; // Proyectar sombras
-                child.receiveShadow = true; // Recibir sombras
-              }
-            }
-          });
-
-          // Cargar la imagen
-          const textureLoader = new THREE.TextureLoader();
-          textureLoader.load(
-            '/assets/images/OpenOfice2.png', // Ruta de la imagen
-            (imageTexture) => {
-              console.log('Imagen cargada correctamente'); // Verifica si se carga
-              const planeGeometry = new THREE.PlaneGeometry(1.8, 3.6); // Tamaño del plano
-              const planeMaterial = new THREE.MeshBasicMaterial({
-                map: imageTexture,
-                transparent: true,
-                side: THREE.DoubleSide,
-              });
-              this.plane = new THREE.Mesh(planeGeometry, planeMaterial);
-              // Posicionar el plano sobre el modelo
-              this.plane.position.set(0, 0.15, -0.3); // Ajusta la posición
-              this.plane.rotation.x = -Math.PI / 2; // Rotar el plano si es necesario
-
-              this.plane.castShadow = true; // Habilitar sombras en el plano
-              this.plane.receiveShadow = true;
-
-              // Crear un grupo que contenga tanto el modelo como la imagen
-              const group = new THREE.Group();
-              group.add(model);
-              group.add(this.plane);
-              group.rotation.x = Math.PI / 2.15; // Ajusta la rotación
-              group.position.y = -0.5; // Ajusta la posición
-              // Añadir el grupo a la escena
-              this.scene.add(group);
-              console.log('Imagen aplicada correctamente');
-
-              // Crear el GUI una vez que el plano esté disponible
-              // const gui = new dat.GUI();
-
-              // const guiContainer = document.querySelector('.dg') as HTMLElement;
-              // if (guiContainer) {
-              //   guiContainer.style.position = 'absolute';
-              //   guiContainer.style.top = '100px'; // Cambia la posición vertical
-              //   guiContainer.style.left = '20px'; // Cambia la posición horizontal
-              // }
-
-              // Crea un objeto para el color, que será modificado por el GUI
-
-              // Crea una carpeta para el móvil y añade el selector de color
-              // gui.addColor(this.debugObject, 'color').onChange(() => {
-              //   this.nuevoMaterial.color.set(this.debugObject.color);
-              //   this.directionalLightBack.color.set(this.debugObject.color);
-              //   this.directionalLightFront.color.set(this.debugObject.color);
-              // });
-              // gui
-              //   .add(this.directionalLightFront, 'intensity', 0, 10)
-              //   .name('Luz frontal');
-              // gui
-              //   .add(this.directionalLightBack, 'intensity', 0, 10)
-              //   .name('Luz trasera');
-              // gui
-              //   .add(this.directionalLightBack.position, 'x', -10, 10)
-              //   .name('Luz trasera X');
-              // gui
-              //   .add(this.directionalLightBack.position, 'y', -10, 10)
-              //   .name('Luz trasera Y');
-              // gui
-              //   .add(this.directionalLightBack.position, 'z', -10, 10)
-              //   .name('Luz trasera Z');
-
-            },
-            undefined, // Progreso (si lo necesitas)
-            (error) => {
-              console.error('Error al cargar la imagen:', error);
-            }
-          );
+          model.scale.set(2, 2, 2);
+          model.rotateY(Math.PI / 6.5)
+          this.scene.add(model)
+        },
+        (xhr) => {
+          console.log(`Progreso: ${(xhr.loaded / xhr.total) * 100}%`);
+        },
+        (error) => {
+          console.error('Error al cargar el modelo:', error);
+        }
+      );
+      gltfLoader.load(
+        '/assets/models/vibex200.glb',
+        (gltf) => {
+          const model = gltf.scene;
+          model.scale.set(2, 2, 2);
+          model.position.set(-2, 0, 0)
+          model.rotateY(-Math.PI / 1.25)
+          this.scene.add(model)
         },
         (xhr) => {
           console.log(`Progreso: ${(xhr.loaded / xhr.total) * 100}%`);

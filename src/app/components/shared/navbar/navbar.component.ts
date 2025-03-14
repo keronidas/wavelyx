@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { RoutingDirective } from '../../../directives/routing.directive';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'shared-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
   providers: [RoutingDirective]
