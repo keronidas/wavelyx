@@ -6,18 +6,21 @@ import { CatalogoComponent } from './pages/clients/catalogo/catalogo.component';
 import { ZonaUsuarioComponent } from './pages/clients/zona-usuario/zona-usuario.component';
 import { LayoutComponent } from './pages/clients/layout/layout.component';
 import { BioProductsComponent } from './pages/clients/bio-products/bio-products.component';
+import { PruebaComponent } from './prueba/prueba/prueba.component';
 
 export const routes: Routes = [
-    {
-        path: '', component: LayoutComponent, children: [
-            { path: 'home', component: HomeComponent },
-            { path: 'configurador', component: ConfiguradorComponent },
-            { path: 'catalogo-electronico', component: CatalogoComponent },
-            { path: 'productos-biodegradables', component: BioProductsComponent },
-            { path: 'politica-privacidad', component: PoliticasComponent },
-            { path: 'zona-usuarios', component: ZonaUsuarioComponent },
-            { path: '**', redirectTo: 'home' }
-        ]
-    },
-    
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'configurador', component: ConfiguradorComponent },
+      { path: 'catalogo-electronico', component: CatalogoComponent },
+      { path: 'productos-biodegradables', component: BioProductsComponent },
+      { path: 'politica-privacidad', component: PoliticasComponent },
+      { path: 'zona-usuarios', component: ZonaUsuarioComponent },
+      { path: 'prueba', component: PruebaComponent },
+      { path: '**', redirectTo: 'home' },
+    ],
+  },
 ];
