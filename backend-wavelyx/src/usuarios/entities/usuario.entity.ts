@@ -36,4 +36,5 @@ export class Usuario extends Document {
   borrado_suave: false;
 }
 
+
 export const UsuarioSchema = SchemaFactory.createForClass(Usuario);

@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsBoolean, IsDate, IsEmail, IsMongoId, IsObject, IsString, MinLength, ValidateNested } from "class-validator";
+import { IsBoolean, IsEmail, IsMongoId, IsObject, IsString, MinLength, ValidateNested } from "class-validator";
 import { Direccion } from "src/shared/entities/direccion.entity";
 
 export class CreateUsuarioDto {
@@ -29,13 +29,11 @@ export class CreateUsuarioDto {
     @IsMongoId()
     historial_pedidos: string[]
 
-    @IsDate()
-    fecha_registro: Date
+
 
     @IsBoolean()
     esta_activo: boolean
 
-    @IsBoolean()
-    borrado_suave: boolean;
+
 
 }

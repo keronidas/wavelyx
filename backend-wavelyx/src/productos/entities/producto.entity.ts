@@ -16,10 +16,10 @@ export class Producto extends Document {
   stock: number;
 
   @Prop({ type: String, required: true })
-  imagenes: string[];
+  imagen: string;
 
   @Prop({ type: String, required: true })
-  categoria: string[];
+  categoria: string;
 
   @Prop({ default: 'true', type: Boolean })
   esta_activo: boolean;
@@ -33,4 +33,7 @@ export class Producto extends Document {
   @Prop({ type: Boolean, default: 'false' })
   borrado_suave: false;
 }
+
+
+
 export const ProductoSchema = SchemaFactory.createForClass(Producto);

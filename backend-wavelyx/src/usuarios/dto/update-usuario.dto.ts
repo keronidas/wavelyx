@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsString, MinLength, IsEmail, IsObject, ValidateNested, IsMongoId, IsDate, IsBoolean, IsOptional } from 'class-validator';
+import { IsString, MinLength, IsEmail, IsObject, ValidateNested, IsMongoId, IsBoolean, IsOptional } from 'class-validator';
 import { Direccion } from 'src/shared/entities/direccion.entity';
 
 export class UpdateUsuarioDto {

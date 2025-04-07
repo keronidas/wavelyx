@@ -26,4 +26,14 @@ export class Factura extends Document {
   borrado_suave: false;
 }
 
+export class FacturaEntity{
+  pedido_id: mongoose.Types.ObjectId;
+  usuario_id: mongoose.Types.ObjectId;
+  fecha_factura: Date;
+  precio_total: number;
+  archivo_pdf: string;
+  esta_pagado: boolean;
+  borrado_suave: false;
+}
+
 export const FacturaSchema = SchemaFactory.createForClass(Factura);

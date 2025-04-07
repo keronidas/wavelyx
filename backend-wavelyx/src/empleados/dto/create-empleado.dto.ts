@@ -1,15 +1,13 @@
 import {
   IsBoolean,
-  IsDate,
   IsEmail,
   IsOptional,
   IsString,
   Min,
   MinLength,
-} from 'class-validator';
+} from "class-validator";
 
 export class CreateEmpleadoDto {
-    
   @Min(10)
   @IsString()
   nombre: string;
@@ -28,6 +26,4 @@ export class CreateEmpleadoDto {
   @IsBoolean()
   @IsOptional()
   esta_activo: boolean;
-
-
 }

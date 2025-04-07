@@ -18,10 +18,21 @@ export class Empleado extends Document {
   @Prop({ type: Date, default: Date.now })
   fecha_ingreso: Date;
 
-  @Prop({ default: true, type: Boolean, required:true })
+  @Prop({ default: true, type: Boolean})
   esta_activo: boolean;
 
   @Prop({ type: Boolean, default: 'false' })
+  borrado_suave: false;
+}
+
+export class EmpleadoEntity{
+
+  nombre: string;
+  email: string;
+  password_hash: string;
+  rol: string;
+  fecha_ingreso: Date;
+  esta_activo: boolean;
   borrado_suave: false;
 }
 

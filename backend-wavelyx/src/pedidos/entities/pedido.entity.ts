@@ -29,4 +29,15 @@ export class Pedido extends Document {
   borrado_suave: false;
 }
 
+export class PedidoEntity{
+  usuario_id: string;
+  compra_productos: string[];
+  coste_total: number;
+  estado: string;
+  numero_seguimiento: string;
+  fecha_pedido: Date;
+  empleado_asignado: string;
+  borrado_suave: false;
+}
+
 export const PedidoSchema = SchemaFactory.createForClass(Pedido);
