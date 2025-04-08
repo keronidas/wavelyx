@@ -10,10 +10,11 @@ import { FacturasModule } from './facturas/facturas.module';
 import { FilesModule } from './shared/files/files.module';
 import { ConfigModule } from '@nestjs/config';
 import { EnvConfiguration } from './config/app.config';
+import { JoiValidationSchema } from './config/joi.validation';
 
 @Module({
   imports: [ConfigModule.forRoot({
-    load: [EnvConfiguration]
+    load: [EnvConfiguration], validationSchema: JoiValidationSchema
   }), MongooseModule.forRoot(process.env.MONGODB!, {
     authSource: 'admin',
     retryAttempts: 5,
