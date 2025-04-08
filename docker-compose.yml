@@ -14,43 +14,43 @@ services:
     volumes:
       - mongo-data:/data/db
 
-  # backend-wavelyx:
-  #   build: ./backend-wavelyx
-  #   container_name: backend-wavelyx
-  #   restart: always
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - mongodb
-  #   environment:
-  #     - MONGO_URI=mongodb://admin:adminpass@mongodb:27017/
-  #   volumes:
-  #     - ./backend-wavelyx:/app
-  #     - /app/node_modules
+  backend-wavelyx:
+    build: ./backend-wavelyx
+    container_name: backend-wavelyx
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://admin:adminpass@mongodb:27017/
+    volumes:
+      - ./backend-wavelyx:/app
+      - /app/node_modules
 
-  # frontend-clientes:
-  #   build: ./frontend-clientes
-  #   container_name: frontend-clientes
-  #   restart: always
-  #   ports:
-  #     - "8080:80"
-  #   depends_on:
-  #     - backend-wavelyx
-  #   volumes:
-  #     - ./frontend-clientes:/app
-  #     - /app/node_modules
+  frontend-clientes:
+    build: ./frontend-clientes
+    container_name: frontend-clientes
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend-wavelyx
+    volumes:
+      - ./frontend-clientes:/app
+      - /app/node_modules
 
-  # frontend-empleados:
-  #   build: ./frontend-empleados
-  #   container_name: frontend-empleados
-  #   restart: always
-  #   ports:
-  #     - "8081:80"
-  #   depends_on:
-  #     - backend-wavelyx
-  #   volumes:
-  #     - ./frontend-empleados:/app
-  #     - /app/node_modules
+  frontend-empleados:
+    build: ./frontend-empleados
+    container_name: frontend-empleados
+    restart: always
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend-wavelyx
+    volumes:
+      - ./frontend-empleados:/app
+      - /app/node_modules
 
 volumes:
   mongo-data:
