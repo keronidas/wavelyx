@@ -8,16 +8,20 @@ import { PedidosModule } from './pedidos/pedidos.module';
 import { ProductosModule } from './productos/productos.module';
 import { FacturasModule } from './facturas/facturas.module';
 import { FilesModule } from './shared/files/files.module';
+import { ConfigModule } from '@nestjs/config';
+import { EnvConfiguration } from './config/app.config';
 
 @Module({
-  imports: [EmpleadosModule, MongooseModule.forRoot('mongodb://admin:adminpass@localhost:27017/-wavelyx', {
+  imports: [ConfigModule.forRoot({
+    load: [EnvConfiguration]
+  }), MongooseModule.forRoot(process.env.MONGODB!, {
     authSource: 'admin',
     retryAttempts: 5,
     retryDelay: 1000
-  }), UsuariosModule, PedidosModule, ProductosModule, FacturasModule, FilesModule],
+  }), UsuariosModule, EmpleadosModule, PedidosModule, ProductosModule, FacturasModule, FilesModule,],
   controllers: [AppController],
   providers: [AppService],
 
 
 })
-export class AppModule {}
+export class AppModule { }
