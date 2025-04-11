@@ -1,3 +1,3 @@
-export { fileFilter } from "./fileFilter.helper";
-export { fileNamer } from "./fileNamer.helper";
+export { fileFilter } from "./file-filter.helper";
+export { fileNamer } from "./file-namer.helper";
 
