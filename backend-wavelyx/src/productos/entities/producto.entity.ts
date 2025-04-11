@@ -1,8 +1,10 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
 
 @Schema()
 export class Producto extends Document {
+  @Prop({ unique: true })
+  id_producto: string;
   @Prop({ unique: true, minlength: 3, type: String, required: true })
   nombre: string;
 
@@ -21,19 +23,17 @@ export class Producto extends Document {
   @Prop({ type: String, required: true })
   categoria: string;
 
-  @Prop({ default: 'true', type: Boolean })
+  @Prop({ default: "true", type: Boolean })
   esta_activo: boolean;
 
-  @Prop({ required: true, type: Boolean, default: 'false' })
+  @Prop({ required: true, type: Boolean, default: "false" })
   es_biodegradable: boolean;
 
   @Prop({ type: Date, default: Date.now })
   fecha_creacion: Date;
 
-  @Prop({ type: Boolean, default: 'false' })
+  @Prop({ type: Boolean, default: "false" })
   borrado_suave: false;
 }
-
-
 
 export const ProductoSchema = SchemaFactory.createForClass(Producto);

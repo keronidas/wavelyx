@@ -9,7 +9,7 @@
 */.env
 */dist
 */.angular
-
+/backend-wavelyx/static/*
 # Node
 /node_modules
 npm-debug.log

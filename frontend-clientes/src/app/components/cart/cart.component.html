@@ -1,22 +1,44 @@
 <div class="fixed top-0 right-2 h-12 w-12 flex justify-center items-center z-40" #cartIcon
-    (click)="toggleCartVisibility()"><icon-cart></icon-cart></div>
+    (click)="toggleCartVisibility()">
+    <icon-cart></icon-cart>
+    <!-- Mostrar cantidad de items -->
+    <span *ngIf="carrito().length > 0"
+        class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+        {{ carrito().length }}
+    </span>
+</div>
+
 <div class="min-w-[300px] fixed top-12 right-2 z-40 shadow-2xl bg-white rounded-b-lg hidden" #cart>
-    <!-- Título del carrito -->
     <div class="bg-green-600 p-4 text-center">
-        <p class="text-2xl text-white">Carrito de compra</p>
+        <p class="text-2xl text-white">Carrito ({{ carrito().length }})</p>
     </div>
 
-    <!-- Lista de productos en el carrito -->
     <div class="bg-white max-h-[60vh] overflow-auto p-2 gap-y-2">
-        <div class="flex w-72 h-24 border-gray-300 border p-2 shadow-lg">
-            <div class="flex-1">Producto 1</div>
-            <div class="flex-1 text-right">$10.00</div>
+        @for (item of carrito(); track item.id) {
+        <div class="flex w-full items-center justify-between border-b py-3">
+            <div class="flex items-center">
+                <!-- <img [src]="item.imagen" class="w-12 h-12 object-cover rounded mr-3"> -->
+                <div>
+                    <p class="font-bold">{{ item.nombre }}</p>
+                    <p>{{ item.precio }} × {{ item.cantidad }}</p>
+                </div>
+            </div>
+            <div class="flex items-center">
+                <button (click)="updateQuantity(item.id, -1)" class="px-2">-</button>
+                <span class="mx-1">{{ item.cantidad }}</span>
+                <button (click)="updateQuantity(item.id, 1)" class="px-2">+</button>
+                <button (click)="removeItem(item.id)" class="ml-2 text-red-500">🗑️</button>
+            </div>
         </div>
-
+        } @empty {
+        <p class="p-4 text-center text-gray-500">El carrito está vacío</p>
+        }
     </div>
 
-    <!-- Total del carrito -->
     <div class="bg-green-600 p-4 text-center rounded-b-lg">
-        <p class="text-xl text-white">Total: <span id="total">$50.00</span></p>
+        <p class="text-xl text-white">Total: {{ total() }}</p>
+        <button class="mt-2 bg-white text-green-600 px-4 py-2 rounded font-bold">
+            Finalizar Compra
+        </button>
     </div>
 </div>

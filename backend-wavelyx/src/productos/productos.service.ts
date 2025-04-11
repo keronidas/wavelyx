@@ -4,6 +4,7 @@ import { UpdateProductoDto } from './dto/update-producto.dto';
 import { Producto } from './entities/producto.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class ProductosService {
@@ -16,6 +17,7 @@ export class ProductosService {
     const newProduct = new this.productoModel(createProductoDto);
     newProduct.fecha_creacion = new Date()
     newProduct.esta_activo = true;
+    newProduct.id_producto= uuidv4()
     newProduct.borrado_suave = false;
     return await newProduct.save();
   }
