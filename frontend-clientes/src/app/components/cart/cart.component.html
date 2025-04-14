@@ -1,7 +1,6 @@
 <div class="fixed top-0 right-2 h-12 w-12 flex justify-center items-center z-40" #cartIcon
     (click)="toggleCartVisibility()">
     <icon-cart></icon-cart>
-    <!-- Mostrar cantidad de items -->
     <span *ngIf="carrito().length > 0"
         class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
         {{ carrito().length }}
@@ -13,25 +12,43 @@
         <p class="text-2xl text-white">Carrito ({{ carrito().length }})</p>
     </div>
 
-    <div class="bg-white max-h-[60vh] overflow-auto p-2 gap-y-2">
+    <div class="bg-white max-h-[60vh] overflow-auto p-2 gap-y-2 rounded-lg border border-gray-200 shadow-sm">
         @for (item of carrito(); track item.id) {
-        <div class="flex w-full items-center justify-between border-b py-3">
-            <div class="flex items-center">
+        <div
+            class="flex w-full items-center justify-between border-b border-gray-100 py-3 px-2 hover:bg-gray-50 transition-colors">
+            <div class="flex items-center space-x-3">
                 <!-- <img [src]="item.imagen" class="w-12 h-12 object-cover rounded mr-3"> -->
-                <div>
-                    <p class="font-bold">{{ item.nombre }}</p>
-                    <p>{{ item.precio }} × {{ item.cantidad }}</p>
+                <div class="min-w-0">
+                    <p class="font-bold text-gray-800 capitalize truncate">{{ item.nombre }}</p>
+                    @if(item.detalles){
+                    @if(item.detalles.seguro.nombre!='Ninguno'){
+                    <p class="text-sm text-blue-600 truncate">{{item.detalles.seguro.nombre}}</p>
+                    }
+                    @if(item.detalles.extras.nombre!='Ninguno'){
+                    <p class="text-sm text-green-600 truncate">{{item.detalles.extras.nombre}}</p>
+                    }
+                    }
+                    <p class="text-sm text-gray-500">{{ item.precio }}€ × {{ item.cantidad }}</p>
                 </div>
             </div>
-            <div class="flex items-center">
-                <button (click)="updateQuantity(item.id, -1)" class="px-2">-</button>
-                <span class="mx-1">{{ item.cantidad }}</span>
-                <button (click)="updateQuantity(item.id, 1)" class="px-2">+</button>
-                <button (click)="removeItem(item.id)" class="ml-2 text-red-500">🗑️</button>
+            <div class="flex items-center space-x-2">
+                <button (click)="updateQuantity(item.id, -1)"
+                    class="w-7 h-7 flex items-center justify-center rounded border border-gray-300 hover:bg-gray-100">
+                    -
+                </button>
+                <span class="w-5 text-center">{{ item.cantidad }}</span>
+                <button (click)="updateQuantity(item.id, 1)"
+                    class="w-7 h-7 flex items-center justify-center rounded border border-gray-300 hover:bg-gray-100">
+                    +
+                </button>
+                <button (click)="removeItem(item.id)"
+                    class="ml-1 w-7 h-7 flex items-center justify-center rounded hover:bg-red-50 text-red-500">
+                    ✕
+                </button>
             </div>
         </div>
         } @empty {
-        <p class="p-4 text-center text-gray-500">El carrito está vacío</p>
+        <p class="p-4 text-center text-gray-500 italic">El carrito está vacío</p>
         }
     </div>
 

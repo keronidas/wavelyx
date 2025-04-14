@@ -1,9 +1,11 @@
 import { Type } from "class-transformer";
-import { IsBoolean, IsEmail, IsMongoId, IsObject, IsString, MinLength, ValidateNested } from "class-validator";
+import { IsBoolean, IsEmail, IsMongoId, isObject, IsObject, IsOptional, IsString, MinLength, ValidateNested } from "class-validator";
 import { Direccion } from "src/shared/entities/direccion.entity";
 
 export class CreateUsuarioDto {
-
+    @IsString()
+    @IsOptional()
+    usuario_id:string
 
     @IsString()
     @MinLength(3)
@@ -27,11 +29,11 @@ export class CreateUsuarioDto {
     telefono: string
 
     @IsMongoId()
+    @IsOptional()
     historial_pedidos: string[]
 
-
-
     @IsBoolean()
+    @IsOptional()
     esta_activo: boolean
 
 

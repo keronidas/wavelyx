@@ -4,6 +4,7 @@ import { UpdateUsuarioDto } from "./dto/update-usuario.dto";
 import { Usuario } from "./entities/usuario.entity";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class UsuariosService {
@@ -12,13 +13,11 @@ export class UsuariosService {
     private readonly usuarioModel: Model<Usuario>,
   ) {}
 
-  async create(createUsuarioDto: CreateUsuarioDto) {
-    const usuario = new this.usuarioModel({
-      ...createUsuarioDto,
-      fecha_registro: new Date(),
-      borrado_suave: false,
-    });
-    return await usuario.save();
+  async create(createUsuarioDto: CreateUsuarioDto): Promise<Usuario> {
+    const newUsuario = new this.usuarioModel(createUsuarioDto);
+    newUsuario.fecha_registro = new Date();
+    newUsuario.usuario_id = uuidv4();
+    return await newUsuario.save();
   }
 
   async findAll() {

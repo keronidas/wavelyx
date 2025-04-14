@@ -1,10 +1,12 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
-import { Direccion } from 'src/shared/entities/direccion.entity';
-import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import mongoose from "mongoose";
+import { Direccion } from "src/shared/entities/direccion.entity";
+import { Document } from "mongoose";
 
 @Schema()
 export class Usuario extends Document {
+  @Prop({})
+  usuario_id: string;
   @Prop({ required: true, type: String })
   nombre: string;
 
@@ -14,7 +16,7 @@ export class Usuario extends Document {
   @Prop({ required: true, type: String })
   password_hash: string;
 
-  @Prop({ default: 'Bronce', type: String })
+  @Prop({ default: "Bronce", type: String })
   nivel_categoria: string;
 
   @Prop({ required: true })
@@ -23,7 +25,7 @@ export class Usuario extends Document {
   @Prop({ minlength: 6, required: true, type: String })
   telefono: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Pedido' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Pedido" })
   historial_pedidos: string[];
 
   @Prop({ type: Date, default: Date.now })
@@ -32,9 +34,8 @@ export class Usuario extends Document {
   @Prop({ default: true, type: Boolean })
   esta_activo: boolean;
 
-  @Prop({ type: Boolean, default: 'false' })
+  @Prop({ type: Boolean, default: "false" })
   borrado_suave: false;
 }
-
 
 export const UsuarioSchema = SchemaFactory.createForClass(Usuario);

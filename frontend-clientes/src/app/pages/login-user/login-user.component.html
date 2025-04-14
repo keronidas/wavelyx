@@ -1,142 +1,97 @@
-<body class="bg-eco-light flex items-center justify-center" style="height: calc(100vh - 48px);">
-    <div class="max-w-md w-full bg-white rounded-xl shadow-2xl overflow-hidden">
-      <!-- Header -->
-      <div class="bg-eco-green text-white p-8 text-center">
-        <div class="flex justify-center mb-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-12 w-12 animate-float"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 10V3L4 14h7v7l9-11h-7z"
-            />
-          </svg>
-        </div>
-        <h1 class="text-3xl font-bold">Bienvenido de nuevo</h1>
-        <p class="mt-2 opacity-90">Accede a tu cuenta de cliente ecofriendly</p>
+<div class="min-h-screen flex items-center justify-center bg-eco-light">
+  <div class="max-w-md w-full bg-white rounded-xl shadow-2xl overflow-hidden">
+    <!-- Header -->
+    <div class="bg-eco-green text-white p-8 text-center">
+      <div class="flex justify-center mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
       </div>
-  
-      <!-- Formulario -->
-      <form class="p-8 space-y-6">
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-1"
-            >Correo electrónico</label
-          >
-          <div class="relative">
-            <div
-              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-eco-green focus:border-eco-green transition"
-              placeholder="tucorreo@ejemplo.com"
-            />
-          </div>
-        </div>
-  
-        <div>
-          <label
-            for="password"
-            class="block text-sm font-medium text-gray-700 mb-1"
-            >Contraseña</label
-          >
-          <div class="relative">
-            <div
-              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
-            </div>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-eco-green focus:border-eco-green transition"
-              placeholder="••••••••"
-            />
-          </div>
-        </div>
-  
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              class="h-4 w-4 text-eco-green focus:ring-eco-green border-gray-300 rounded"
-            />
-            <label for="remember-me" class="ml-2 block text-sm text-gray-700"
-              >Recuérdame</label
-            >
-          </div>
-  
-          <div class="text-sm">
-            <a
-              href="#"
-              class="font-medium text-eco-green hover:text-eco-dark transition"
-              >¿Olvidaste tu contraseña?</a
-            >
-          </div>
-        </div>
-  
-        <div>
-          <button
-            type="submit"
-            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-eco-green hover:bg-eco-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-eco-green transition"
-          >
-            Acceder a mi cuenta
-          </button>
-        </div>
-      </form>
-  
-      <!-- Footer -->
-      <div class="bg-gray-50 px-8 py-4 text-center">
-        <p class="text-sm text-gray-600">
-          ¿No tienes una cuenta?
-          <a
-            href="#"
-            class="font-medium text-eco-green hover:text-eco-dark transition"
-            >Regístrate ahora</a
-          >
-        </p>
-      </div>
+      <h1 class="text-3xl font-bold">Inicia sesión</h1>
+      <p class="mt-2 opacity-90">Accede a tu cuenta ecofriendly</p>
     </div>
-  </body>
-  
+
+    <!-- Formulario -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-8 space-y-6">
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <input id="email" formControlName="email" type="email" required
+            class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-eco-green focus:border-eco-green transition"
+            placeholder="tucorreo@ejemplo.com">
+        </div>
+        @if (f['email'].touched && f['email'].errors) {
+          <div class="text-red-500 text-xs mt-1">
+            @if (f['email'].errors['required']) {
+              <div>El email es requerido</div>
+            }
+            @if (f['email'].errors['email']) {
+              <div>Ingresa un email válido</div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Contraseña -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <input id="password" formControlName="password" type="password" required
+            class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-eco-green focus:border-eco-green transition"
+            placeholder="••••••••">
+        </div>
+        @if (f['password'].touched && f['password'].errors) {
+          <div class="text-red-500 text-xs mt-1">
+            @if (f['password'].errors['required']) {
+              <div>La contraseña es requerida</div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Error de login -->
+      @if (loginError) {
+        <div class="text-red-500 text-sm text-center">
+          {{ loginError }}
+        </div>
+      }
+
+      <!-- Botón -->
+      <div>
+        <button type="submit" [disabled]="isLoading"
+          class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-eco-green hover:bg-eco-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-eco-green transition disabled:opacity-75 disabled:cursor-not-allowed">
+          @if (isLoading) {
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Procesando...
+          } @else {
+            Iniciar sesión
+          }
+        </button>
+      </div>
+    </form>
+
+    <!-- Footer -->
+    <div class="bg-gray-50 px-8 py-4 text-center">
+      <p class="text-sm text-gray-600">
+        ¿No tienes una cuenta?
+        <a [routerLink]="'/register'" class="font-medium text-eco-green hover:text-eco-dark transition">
+          Regístrate
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

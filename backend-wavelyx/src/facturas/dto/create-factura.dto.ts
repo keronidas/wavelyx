@@ -27,6 +27,7 @@ export class CreateFacturaDto {
 
   @IsString()
   @MinLength(10)
+  @IsOptional()
   archivo_pdf: string;
 
   @IsBoolean()

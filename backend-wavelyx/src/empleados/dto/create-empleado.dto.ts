@@ -8,6 +8,10 @@ import {
 } from "class-validator";
 
 export class CreateEmpleadoDto {
+  @IsString()
+  @IsOptional()
+  empleado_id: string;
+
   @Min(10)
   @IsString()
   nombre: string;

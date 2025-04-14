@@ -1,23 +1,23 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateProductoDto } from './dto/create-producto.dto';
-import { UpdateProductoDto } from './dto/update-producto.dto';
-import { Producto } from './entities/producto.entity';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { v4 as uuidv4 } from 'uuid';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { CreateProductoDto } from "./dto/create-producto.dto";
+import { UpdateProductoDto } from "./dto/update-producto.dto";
+import { Producto } from "./entities/producto.entity";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class ProductosService {
   constructor(
     @InjectModel(Producto.name)
     private readonly productoModel: Model<Producto>,
-  ) { }
+  ) {}
 
   async create(createProductoDto: CreateProductoDto): Promise<Producto> {
     const newProduct = new this.productoModel(createProductoDto);
-    newProduct.fecha_creacion = new Date()
+    newProduct.fecha_creacion = new Date();
     newProduct.esta_activo = true;
-    newProduct.id_producto= uuidv4()
+    newProduct.id_producto = uuidv4();
     newProduct.borrado_suave = false;
     return await newProduct.save();
   }
@@ -48,7 +48,23 @@ export class ProductosService {
     return producto;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} producto`;
+
+
+  async remove(id: string) {
+    const producto = await this.productoModel
+      .findByIdAndUpdate(
+        id,
+        {
+          $set: {
+            borrado_suave: true,
+          },
+        },
+        { new: true },
+      )
+      .exec();
+    if (!producto) {
+      throw new NotFoundException(`Producto con ${id} no encontrado`);
+    }
+    return producto;
   }
 }

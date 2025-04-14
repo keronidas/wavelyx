@@ -20,9 +20,6 @@ export class CarritoDirective {
     return saved ? JSON.parse(saved) : [];
   }
 
-  // getCarrito(): number {
-  //   this.carrito();
-  // }
   addToCarrito(producto: CarritoProducto) {
     this._carrito.update((items) => {
       const existing = items.find((item) => item.id === producto.id);

@@ -1,0 +1,9 @@
+.bg-eco-green{
+    @apply bg-[#2F855A]
+}
+.bg-eco-light{
+    @apply bg-[#C6F6D5]
+}
+.bg-eco-dark{
+    @apply bg-[#276749]
+}

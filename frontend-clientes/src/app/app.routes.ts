@@ -6,6 +6,7 @@ import { ZonaUsuarioComponent } from './pages/zona-usuario/zona-usuario.componen
 import { LayoutComponent } from './pages/layout/layout.component';
 import { BioProductsComponent } from './pages/bio-products/bio-products.component';
 import { LoginUserComponent } from './pages/login-user/login-user.component';
+import { RegisterUserComponent } from './pages/register-user/register-user.component';
 
 export const routes: Routes = [
   {
@@ -17,7 +18,8 @@ export const routes: Routes = [
       { path: 'catalogo-electronico', component: CatalogoComponent },
       { path: 'productos-biodegradables', component: BioProductsComponent },
       { path: 'login', component: LoginUserComponent },
-      { path: 'zona-usuarios', component: ZonaUsuarioComponent },
+      { path: 'register', component: RegisterUserComponent },
+      { path: 'zona-usuario', component: ZonaUsuarioComponent },
       { path: '**', redirectTo: 'home' },
     ],
   },

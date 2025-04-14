@@ -4,7 +4,10 @@
         <p class="text-2xl">Selecciona tu producto</p>
         <div class="flex flex-col justify-evenly py-4 gap-y-6">
             @for (item of productos; track $index) {
-            <div class=" border border-gray-300 hover:shadow-lg p-2" (click)="showItem(item.fn)">
+            <div class=" border border-gray-300 hover:shadow-lg p-2" (click)="seleccionarProducto(item)" [ngStyle]="{
+                'border-width': seleccion().producto === item ? '3px' : '1px',
+                'border-color': seleccion().producto === item ? '#2563eb' : '#d1d5db' 
+              }">
                 <p class="p-2"><span class="capitalize">{{item.nombre}}</span></p>
                 <p class="px-2"><span class="font-semibold bg-gray-200 p-1 capitalize">{{item.categoria}}</span></p>
                 <p class="p-2"><span>Procesador: {{item.procesador}}</span></p>
@@ -19,7 +22,10 @@
         <p class="text-2xl">Agrega un seguro</p>
         <div class="flex flex-col justify-evenly py-4 gap-y-6">
             @for (item of seguros; track $index) {
-            <div class=" border border-gray-300 hover:shadow-lg p-2 ">
+            <div class=" border border-gray-300 hover:shadow-lg p-2 " (click)="seleccionarSeguro(item)" [ngStyle]="{
+                'border-width': seleccion().seguro === item ? '3px' : '1px',
+                'border-color': seleccion().seguro === item ? '#2563eb' : '#d1d5db' 
+              }">
                 <p class="p-2"><span class="capitalize">{{item.nombre}}</span></p>
                 <p class="px-2"><span class="font-semibold bg-gray-200 p-1 capitalize">{{item.categoria}}</span></p>
                 <p class="p-2"><span>Procesador: {{item.descripcion}}</span></p>
@@ -34,7 +40,10 @@
         <p class="text-2xl">Agrega extras</p>
         <div class="flex flex-col justify-evenly py-4 gap-y-6">
             @for (item of extras; track $index) {
-            <div class=" border border-gray-300 hover:shadow-lg p-2">
+            <div class=" border border-gray-300 hover:shadow-lg p-2" (click)="seleccionarExtra(item)" [ngStyle]="{
+                'border-width': seleccion().extras === item ? '3px' : '1px',
+                'border-color': seleccion().extras === item ? '#2563eb' : '#d1d5db' 
+              }">
                 <p class="p-2"><span class="capitalize">{{item.nombre}}</span></p>
                 <p class="px-2"><span class="font-semibold bg-gray-200 p-1 capitalize">{{item.categoria}}</span></p>
                 <p class="p-2"><span>Procesador: {{item.descripcion}}</span></p>
@@ -46,13 +55,23 @@
     </div>
 </div>
 <div class="fixed bottom-0 w-full h-20 shadow-lg border-t-2 border-gray-300 z-10 flex justify-between bg-white">
-    <div class="flex justify-center items-center px-8">Modelo seleccionado</div>
+    <div class="flex justify-center items-center px-8 gap-x-4 ">
+        <p><span>Modelo seleccionado: </span>
+            <span class="px-2 capitalize  bg-gray-200 font-semibold p-1">{{seleccion().producto.nombre}}</span>
+        </p>
+        <p><span>Seguro seleccionado: </span>
+            <span class="px-2 capitalize  bg-gray-200 font-semibold p-1">{{seleccion().seguro.nombre}}</span>
+        </p>
+        <p> <span>Extra seleccionado: </span>
+            <span class="px-2 capitalize  bg-gray-200 font-semibold p-1">{{seleccion().extras.nombre}}</span>
+        </p>
+    </div>
     <div class="flex justify-center items-center gap-x-6 pr-6">
         <div class="flex flex-col">
             <p class="uppercase">Precio total</p>
-            <p>111 <span>€</span></p>
+            <p>{{precioTotal()}} <span>€</span></p>
         </div>
-        <button class="bg-blue-600 px-6 py-4 rounded text-white font-bold">Agregar al carrito</button>
+        <button class="bg-blue-600 px-6 py-4 rounded text-white font-bold" (click)="agregarAlCarrito()" >Agregar al carrito</button>
     </div>
 
 </div>

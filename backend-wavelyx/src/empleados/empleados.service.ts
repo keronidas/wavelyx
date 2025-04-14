@@ -5,6 +5,7 @@ import { Empleado } from "./entities/empleado.entity";
 import { InjectModel } from "@nestjs/mongoose";
 import { NotFoundException } from "@nestjs/common";
 import { CreateEmpleadoDto } from "./dto/create-empleado.dto";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class EmpleadosService {
@@ -14,12 +15,12 @@ export class EmpleadosService {
   ) {}
 
   async create(createEmpleadoDto: CreateEmpleadoDto) {
-    const empleado = new this.empleadoModel({
-      ...createEmpleadoDto,
-      fecha_ingreso: new Date(),
-      borrado_suave: false,
-    });
-    return await empleado.save();
+    const newEmpleado = new this.empleadoModel(createEmpleadoDto);
+    newEmpleado.fecha_ingreso = new Date();
+    newEmpleado.borrado_suave = false;
+    newEmpleado.empleado_id = uuidv4();
+
+    return await newEmpleado.save();
   }
 
   async findAll() {
@@ -49,10 +50,20 @@ export class EmpleadosService {
   }
 
   async remove(id: string) {
-    const empleado = await this.empleadoModel.findByIdAndDelete(id).exec();
+    const empleado = await this.empleadoModel
+      .findByIdAndUpdate(
+        id,
+        {
+          $set: {
+            borrado_suave: true,
+          },
+        },
+        { new: true },
+      )
+      .exec();
     if (!empleado) {
-      throw new NotFoundException(`Empleado con id ${id} no encontrado`);
+      throw new NotFoundException(`Empleado con ${id} no encontrado`);
     }
-    return { message: "Empleado eliminado exitosamente" };
+    return empleado;
   }
 }

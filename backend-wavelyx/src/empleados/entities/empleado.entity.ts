@@ -3,6 +3,9 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class Empleado extends Document {
+  @Prop({})
+  empleado_id:string;
+
   @Prop({ minlength: 10, type: String, required: true })
   nombre: string;
 

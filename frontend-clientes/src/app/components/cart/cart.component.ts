@@ -52,8 +52,11 @@ export class CartComponent {
   }
 
   removeItem(id: string) {
-    this.carritoDirective.updateCarrito((items) =>
-      items.filter((item) => item.id !== id)
-    );
+    this.carritoDirective.updateCarrito((items) => {
+      const nuevosItems = items.filter((item) => item.id !== id);
+      localStorage.removeItem(id); // Solo si tienes un ítem por id en el localStorage
+      return nuevosItems;
+    });
   }
+  
 }

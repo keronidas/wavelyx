@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { CreateFacturaDto } from './dto/create-factura.dto';
-import { UpdateFacturaDto } from './dto/update-factura.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { Factura } from './entities/factura.entity';
-import { Model } from 'mongoose';
+import { Injectable } from "@nestjs/common";
+import { CreateFacturaDto } from "./dto/create-factura.dto";
+import { UpdateFacturaDto } from "./dto/update-factura.dto";
+import { InjectModel } from "@nestjs/mongoose";
+import { Factura } from "./entities/factura.entity";
+import { Model } from "mongoose";
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class FacturasService {
@@ -12,8 +13,11 @@ export class FacturasService {
     private readonly facturaModel: Model<Factura>,
   ) {}
 
-  create(createFacturaDto: CreateFacturaDto) {
-    return 'This action adds a new factura';
+  async create(createFacturaDto: CreateFacturaDto): Promise<Factura> {
+    const newFactura = new this.facturaModel(createFacturaDto);
+    newFactura.fecha_factura = new Date();
+    newFactura.factura_id = uuidv4();
+    return await newFactura.save();
   }
 
   findAll() {

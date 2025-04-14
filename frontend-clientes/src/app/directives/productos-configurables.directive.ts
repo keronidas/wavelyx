@@ -32,6 +32,12 @@ export class ProductosDirective {
     ]
     seguros = [
         {
+            nombre: 'Ninguno',
+            precio: '0',
+            categoria: 'Ninguno',
+            descripcion: 'Sin seguro'
+        },
+        {
             nombre: 'Seguro contra daños accidentales',
             precio: '79',
             categoria: 'Cobertura por daños y robo',
@@ -52,6 +58,12 @@ export class ProductosDirective {
     ];
 
     extras = [
+        {
+            nombre: 'Ninguno',
+            precio: '0',
+            categoria: 'Ninguno',
+            descripcion: 'No hay extra seleccionado'
+        },
         {
             nombre: 'Protector de pantalla',
             precio: '15',
