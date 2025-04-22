@@ -11,6 +11,7 @@ import { FilesModule } from './shared/files/files.module';
 import { ConfigModule } from '@nestjs/config';
 import { EnvConfiguration } from './config/app.config';
 import { JoiValidationSchema } from './config/joi.validation';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -19,7 +20,7 @@ import { JoiValidationSchema } from './config/joi.validation';
     authSource: 'admin',
     retryAttempts: 5,
     retryDelay: 1000
-  }), UsuariosModule, EmpleadosModule, PedidosModule, ProductosModule, FacturasModule, FilesModule,],
+  }), UsuariosModule, EmpleadosModule, PedidosModule, ProductosModule, FacturasModule, FilesModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 

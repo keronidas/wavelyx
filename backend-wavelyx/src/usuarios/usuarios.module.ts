@@ -12,6 +12,7 @@ import { MongooseModule } from '@nestjs/mongoose';
         name: Usuario.name,
         schema: UsuarioSchema,
       }
-    ])]
+    ])],
+    exports:[UsuariosService]
 })
 export class UsuariosModule {}

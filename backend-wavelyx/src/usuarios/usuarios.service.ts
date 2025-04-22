@@ -45,7 +45,17 @@ export class UsuariosService {
     }
     return usuario;
   }
+  private readonly users = [
+    {
+      id: 1,
+      email: 'test@example.com',
+      password: '$2b$10$xxxxx...', // hash generado con bcrypt
+    },
+  ];
 
+  async findByEmail(email: string) {
+    return this.users.find(user => user.email === email);
+  }
   async remove(id: string) {
     const usuario = await this.usuarioModel
       .findByIdAndUpdate(

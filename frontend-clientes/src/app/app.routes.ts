@@ -8,19 +8,19 @@ import { BioProductsComponent } from './pages/bio-products/bio-products.componen
 import { LoginUserComponent } from './pages/login-user/login-user.component';
 import { RegisterUserComponent } from './pages/register-user/register-user.component';
 
-export const routes: Routes = [
-  {
-    path: '',
-    component: LayoutComponent,
-    children: [
-      { path: 'home', component: HomeComponent },
-      { path: 'configurador', component: ConfiguradorComponent },
-      { path: 'catalogo-electronico', component: CatalogoComponent },
-      { path: 'productos-biodegradables', component: BioProductsComponent },
-      { path: 'login', component: LoginUserComponent },
-      { path: 'register', component: RegisterUserComponent },
-      { path: 'zona-usuario', component: ZonaUsuarioComponent },
-      { path: '**', redirectTo: 'home' },
-    ],
-  },
+export const routes: Routes = [{ path: 'auth', loadChildren: () => import('./auth/auth.routes') },
+{
+  path: '',
+  component: LayoutComponent,
+  children: [
+    { path: 'home', component: HomeComponent },
+    { path: 'configurador', component: ConfiguradorComponent },
+    { path: 'catalogo-electronico', component: CatalogoComponent },
+    { path: 'productos-biodegradables', component: BioProductsComponent },
+    // { path: 'login', component: LoginUserComponent },
+    // { path: 'register', component: RegisterUserComponent },
+    { path: 'zona-usuario', component: ZonaUsuarioComponent },
+    { path: '**', redirectTo: 'home' },
+  ],
+},
 ];

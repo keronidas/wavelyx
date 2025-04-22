@@ -19,7 +19,7 @@ export class LoginService {
     return this.http.get<any[]>(this.apiUrl).pipe(
       map((users) => {
         const user = users.find(
-          (u) => u.email === email && u.password === hashedPassword
+          (u) => u.email === email && u.password_hash === hashedPassword
         );
 
         if (!user) {

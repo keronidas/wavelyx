@@ -24,13 +24,13 @@ export class RoutingDirective {
   rutasIconos = [
     {
       nombre: 'Login',
-      url: '/login',
+      url: 'auth/login',
       icon: 'assets/icons/usuario.png',
     },
-    {
-      nombre: 'Politica y privacidad',
-      url: '/politica-privacidad',
-      icon: 'assets/icons/politica-de-privacidad.png',
-    },
+    // {
+    //   nombre: 'Politica y privacidad',
+    //   url: '/politica-privacidad',
+    //   icon: 'assets/icons/politica-de-privacidad.png',
+    // },
   ];
 }
