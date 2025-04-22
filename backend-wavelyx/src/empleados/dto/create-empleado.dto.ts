@@ -21,7 +21,7 @@ export class CreateEmpleadoDto {
 
   @IsString()
   @MinLength(10)
-  password_hash: string;
+  password: string;
 
   @IsString()
   @MinLength(3)

@@ -1,10 +1,10 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
 
 @Schema()
 export class Empleado extends Document {
   @Prop({})
-  empleado_id:string;
+  empleado_id: string;
 
   @Prop({ minlength: 10, type: String, required: true })
   nombre: string;
@@ -13,7 +13,7 @@ export class Empleado extends Document {
   email: string;
 
   @Prop({ required: true, type: String })
-  password_hash: string;
+  password: string;
 
   @Prop({ required: true, type: String })
   rol: string;
@@ -21,15 +21,14 @@ export class Empleado extends Document {
   @Prop({ type: Date, default: Date.now })
   fecha_ingreso: Date;
 
-  @Prop({ default: true, type: Boolean})
+  @Prop({ default: true, type: Boolean })
   esta_activo: boolean;
 
-  @Prop({ type: Boolean, default: 'false' })
+  @Prop({ type: Boolean, default: "false" })
   borrado_suave: false;
 }
 
-export class EmpleadoEntity{
-
+export class EmpleadoEntity {
   nombre: string;
   email: string;
   password_hash: string;

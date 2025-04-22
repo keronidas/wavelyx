@@ -6,6 +6,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { NotFoundException } from "@nestjs/common";
 import { CreateEmpleadoDto } from "./dto/create-empleado.dto";
 import { v4 as uuidv4 } from "uuid";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class EmpleadosService {
@@ -15,11 +16,18 @@ export class EmpleadosService {
   ) {}
 
   async create(createEmpleadoDto: CreateEmpleadoDto) {
-    const newEmpleado = new this.empleadoModel(createEmpleadoDto);
-    newEmpleado.fecha_ingreso = new Date();
-    newEmpleado.borrado_suave = false;
-    newEmpleado.empleado_id = uuidv4();
-
+    // Generar hash de la contraseña
+    const saltRounds = 10; // Número de rondas de sal (10 es un buen balance entre seguridad y rendimiento)
+    const hashedPassword = await bcrypt.hash(createEmpleadoDto.password, saltRounds);
+  
+    const newEmpleado = new this.empleadoModel({
+      ...createEmpleadoDto,
+      password: hashedPassword, // Guardamos el hash en lugar de la contraseña en texto plano
+      fecha_ingreso: new Date(),
+      borrado_suave: false,
+      empleado_id: uuidv4()
+    });
+  
     return await newEmpleado.save();
   }
 
