@@ -19,7 +19,15 @@ export class UsuariosService {
     newUsuario.usuario_id = uuidv4();
     return await newUsuario.save();
   }
-
+  async updatePassword(userId: string, newPasswordHash: string) {
+    return this.usuarioModel
+      .findByIdAndUpdate(
+        userId,
+        { password_hash: newPasswordHash },
+        { new: true },
+      )
+      .exec();
+  }
   async findAll() {
     const usuarios = await this.usuarioModel.find().exec();
     const usuariosDisponibles = usuarios.filter(
@@ -48,14 +56,25 @@ export class UsuariosService {
   private readonly users = [
     {
       id: 1,
-      email: 'test@example.com',
-      password: '$2b$10$xxxxx...', // hash generado con bcrypt
+      email: "test@example.com",
+      password: "$2b$10$xxxxx...", // hash generado con bcrypt
     },
   ];
 
   async findByEmail(email: string) {
-    return this.users.find(user => user.email === email);
+    // Busca en MongoDB (no en el array `this.users`)
+    const usuario = await this.usuarioModel.findOne({ email }).exec();
+
+    console.log("Usuario encontrado en DB:", usuario); // Para debug
+
+    if (!usuario || usuario.borrado_suave) {
+      // Si no existe o está "borrado"
+      return null;
+    }
+
+    return usuario;
   }
+
   async remove(id: string) {
     const usuario = await this.usuarioModel
       .findByIdAndUpdate(

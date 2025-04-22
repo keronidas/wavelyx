@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsBoolean, IsEmail, IsMongoId, isObject, IsObject, IsOptional, IsString, MinLength, ValidateNested } from "class-validator";
+import { IsBoolean, IsEmail, IsMongoId, IsObject, IsOptional, IsString, MinLength, ValidateNested } from "class-validator";
 import { Direccion } from "src/shared/entities/direccion.entity";
 
 export class CreateUsuarioDto {
@@ -16,8 +16,8 @@ export class CreateUsuarioDto {
     email: string
 
     @IsString()
-    @MinLength(10)
-    password_hash: string
+    @MinLength(6)  
+    password: string;
 
     @IsObject()
     @ValidateNested()
