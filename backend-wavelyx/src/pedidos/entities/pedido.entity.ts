@@ -1,9 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 import { Document } from 'mongoose';
 
 @Schema()
 export class Pedido extends Document {
+
+  @Prop({ type: String })
+  pedido_id: string;
+
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' })
   usuario_id: string;
 
@@ -23,13 +27,13 @@ export class Pedido extends Document {
   fecha_pedido: Date;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Empleado' })
-  empleado_asignado: string;
+  empleado_asignado: Types.ObjectId;
 
   @Prop({ type: Boolean, default: 'false' })
   borrado_suave: false;
 }
 
-export class PedidoEntity{
+export class PedidoEntity {
   usuario_id: string;
   compra_productos: string[];
   coste_total: number;

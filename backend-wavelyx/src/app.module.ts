@@ -6,7 +6,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { ProductosModule } from './productos/productos.module';
-import { FacturasModule } from './facturas/facturas.module';
 import { FilesModule } from './shared/files/files.module';
 import { ConfigModule } from '@nestjs/config';
 import { EnvConfiguration } from './config/app.config';
@@ -20,7 +19,7 @@ import { AuthModule } from './auth/auth.module';
     authSource: 'admin',
     retryAttempts: 5,
     retryDelay: 1000
-  }), UsuariosModule, EmpleadosModule, PedidosModule, ProductosModule, FacturasModule, FilesModule, AuthModule],
+  }), UsuariosModule, EmpleadosModule, PedidosModule, ProductosModule, FilesModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 

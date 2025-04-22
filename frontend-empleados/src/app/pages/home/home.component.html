@@ -1,17 +1,24 @@
 <div class="w-screen h-screen bg-gray-50 p-6">
   <!-- Header -->
   <div class="mb-8">
-    <h1 class="text-3xl font-bold text-gray-800">Bienvenido de vuelta</h1>
-    <p class="text-gray-500 mt-2">Aquí tienes un resumen de tu actividad</p>
+    <h1 class="text-4xl font-bold text-gray-800">Bienvenido de vuelta</h1>
   </div>
 
+  <!-- Loading State -->
+  @if(isLoading) {
+  <div class="flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+  </div>
+  }
+  @else {
   <!-- Stats Cards -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Empleados activos -->
     <div class="bg-white rounded-xl shadow p-6">
       <div class="flex items-center justify-between">
         <div>
-          <p class="text-gray-500 text-sm">Usuarios activos</p>
-          <p class="text-2xl font-bold mt-1">1,248</p>
+          <p class="text-gray-500 text-sm">Empleados activos</p>
+          <p class="text-2xl font-bold mt-1">{{totalEmpleados}}</p>
         </div>
         <div class="bg-blue-100 p-3 rounded-full">
           <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -20,19 +27,14 @@
           </svg>
         </div>
       </div>
-      <p class="text-green-500 text-sm mt-3 flex items-center">
-        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-        12.5% desde ayer
-      </p>
     </div>
 
+    <!-- Ingresos -->
     <div class="bg-white rounded-xl shadow p-6">
       <div class="flex items-center justify-between">
         <div>
-          <p class="text-gray-500 text-sm">Ingresos</p>
-          <p class="text-2xl font-bold mt-1">$24,890</p>
+          <p class="text-gray-500 text-sm">Ingresos totales</p>
+          <p class="text-2xl font-bold mt-1">{{ingresosTotales | currency:'EUR':'symbol':'1.2-2'}}</p>
         </div>
         <div class="bg-green-100 p-3 rounded-full">
           <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,54 +43,37 @@
           </svg>
         </div>
       </div>
-      <p class="text-green-500 text-sm mt-3 flex items-center">
-        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-        8.2% desde ayer
-      </p>
     </div>
 
+    <!-- Pedidos recepcionados -->
     <div class="bg-white rounded-xl shadow p-6">
       <div class="flex items-center justify-between">
         <div>
-          <p class="text-gray-500 text-sm">Tareas completadas</p>
-          <p class="text-2xl font-bold mt-1">156</p>
+          <p class="text-gray-500 text-sm">Pedidos recepcionados</p>
+          <p class="text-2xl font-bold mt-1">{{pedidosRecepcionados}}</p>
+        </div>
+        <div class="bg-red-100 p-3 rounded-full">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pedidos enviados -->
+    <div class="bg-white rounded-xl shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-gray-500 text-sm">Pedidos enviados</p>
+          <p class="text-2xl font-bold mt-1">{{pedidosEnviados}}</p>
         </div>
         <div class="bg-purple-100 p-3 rounded-full">
           <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
         </div>
       </div>
-      <p class="text-red-500 text-sm mt-3 flex items-center">
-        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-        3.1% desde ayer
-      </p>
-    </div>
-
-    <div class="bg-white rounded-xl shadow p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-gray-500 text-sm">Tiempo promedio</p>
-          <p class="text-2xl font-bold mt-1">3m 42s</p>
-        </div>
-        <div class="bg-yellow-100 p-3 rounded-full">
-          <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-      </div>
-      <p class="text-green-500 text-sm mt-3 flex items-center">
-        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-        1.2% desde ayer
-      </p>
     </div>
   </div>
 
@@ -97,79 +82,36 @@
     <!-- Gráfico principal -->
     <div class="bg-white rounded-xl shadow p-6 lg:col-span-2">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-lg font-semibold text-gray-800">Actividad reciente</h2>
-        <select
-          class="bg-gray-50 border border-gray-300 text-gray-700 py-1 px-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-          <option>Últimos 7 días</option>
-          <option>Últimos 30 días</option>
-          <option>Este año</option>
-        </select>
+        <h2 class="text-lg font-semibold text-gray-800">Distribución de pedidos</h2>
       </div>
-      <div class="h-64 bg-gray-50 rounded-lg flex items-center justify-center text-gray-400">
-        <p-chart type="bar" [data]="basicData" [options]="basicOptions" class="w-[600px]" />
+      <div class="h-[500px] bg-gray-50 rounded-lg flex items-center justify-center">
+        @if(data) {
+        <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]"></p-chart>
+        }
       </div>
     </div>
 
     <!-- Lista de actividades -->
     <div class="bg-white rounded-xl shadow p-6">
-      <h2 class="text-lg font-semibold text-gray-800 mb-6">
-        Últimas actividades
-      </h2>
+      <h2 class="text-lg font-semibold text-gray-800 mb-6">Últimos pedidos</h2>
       <div class="space-y-4">
+        @for (actividad of actividadesRecientes; track actividad.pedidoId) {
         <div class="flex items-start">
-          <div class="bg-blue-100 p-2 rounded-full mr-3">
-            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          <div [class]="'bg-' + actividad.tipo.color + '-100 p-2 rounded-full mr-3'">
+            <svg class="w-5 h-5" [class]="'text-' + actividad.tipo.color + '-600'" fill="none" stroke="currentColor"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="actividad.tipo.icono" />
             </svg>
           </div>
           <div>
-            <p class="font-medium text-gray-800">Nuevo proyecto creado</p>
-            <p class="text-sm text-gray-500">Hace 2 horas por Juan Pérez</p>
+            <p class="font-medium text-gray-800">{{actividad.tipo.texto}}</p>
+            <p class="text-sm text-gray-500">Pedido #{{actividad.pedidoId}}</p>
+            <p class="text-sm text-gray-500">{{formatDate(actividad.fecha)}}</p>
           </div>
         </div>
-
-        <div class="flex items-start">
-          <div class="bg-green-100 p-2 rounded-full mr-3">
-            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div>
-            <p class="font-medium text-gray-800">Tarea completada</p>
-            <p class="text-sm text-gray-500">Hace 5 horas por María García</p>
-          </div>
-        </div>
-
-        <div class="flex items-start">
-          <div class="bg-purple-100 p-2 rounded-full mr-3">
-            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div>
-            <p class="font-medium text-gray-800">Reunión programada</p>
-            <p class="text-sm text-gray-500">Mañana a las 10:00 AM</p>
-          </div>
-        </div>
-
-        <div class="flex items-start">
-          <div class="bg-yellow-100 p-2 rounded-full mr-3">
-            <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <div>
-            <p class="font-medium text-gray-800">Nueva notificación</p>
-            <p class="text-sm text-gray-500">
-              Actualización del sistema disponible
-            </p>
-          </div>
-        </div>
+        }
       </div>
     </div>
   </div>
+  }
 </div>

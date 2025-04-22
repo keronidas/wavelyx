@@ -12,6 +12,7 @@ import { Empleado, EmpleadoSchema } from './entities/empleado.entity';
       name: Empleado.name,
       schema: EmpleadoSchema,
     }
-  ])]
+  ])],
+  exports:[EmpleadosService]
 })
 export class EmpleadosModule { }

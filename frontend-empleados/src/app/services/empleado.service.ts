@@ -8,7 +8,6 @@ interface Empleado {
   id: string;
   nombre: string;
   email: string;
-  // Añade aquí otras propiedades que devuelva tu API
 }
 
 @Injectable({
