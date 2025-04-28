@@ -16,7 +16,7 @@ export class Empleado extends Document {
   password: string;
 
   @Prop({ required: true, type: String })
-  rol: string;
+  rol: string[];
 
   @Prop({ type: Date, default: Date.now })
   fecha_ingreso: Date;
@@ -28,14 +28,5 @@ export class Empleado extends Document {
   borrado_suave: false;
 }
 
-export class EmpleadoEntity {
-  nombre: string;
-  email: string;
-  password_hash: string;
-  rol: string;
-  fecha_ingreso: Date;
-  esta_activo: boolean;
-  borrado_suave: false;
-}
 
 export const EmpleadoSchema = SchemaFactory.createForClass(Empleado);

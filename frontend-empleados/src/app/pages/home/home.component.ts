@@ -64,10 +64,10 @@ export class HomeComponent implements OnInit {
 
         // Generar actividades recientes
         this.generarActividadesRecientes(pedidos);
-        
+
         // Inicializar gráfico con datos reales
         this.initChart();
-        
+
         this.isLoading = false;
         this.cd.markForCheck();
       },
@@ -133,7 +133,7 @@ export class HomeComponent implements OnInit {
           data: [this.pedidosRecepcionados, this.pedidosPreparando, this.pedidosEnviados],
           backgroundColor: [
             documentStyle.getPropertyValue('--p-red-500'),
-            documentStyle.getPropertyValue('--p-yellow-500'), 
+            documentStyle.getPropertyValue('--p-yellow-500'),
             documentStyle.getPropertyValue('--p-green-500')
           ],
           hoverBackgroundColor: [
