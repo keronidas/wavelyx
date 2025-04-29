@@ -1,7 +1,7 @@
-<div class="font-sans bg-gray-50">
+<div class="font-sans bg-green-200">
   <div class="w-screen h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md">
-      <div class="bg-white rounded-xl shadow-2xl p-8 sm:p-10">
+      <div class="bg-green-50 rounded-xl shadow-2xl p-8 sm:p-10">
         <div class="text-center mb-8">
           <div class="flex justify-center mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary-500" fill="none" viewBox="0 0 24 24"
@@ -54,50 +54,31 @@
             </div>
           </div>
 
-          <!-- <div class="flex items-center">
-            <input id="remember-me" name="remember-me" type="checkbox"
-              class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded" />
-            <label for="remember-me" class="ml-2 block text-sm text-gray-700">Recuérdame</label>
-          </div> -->
-
-          <div>
-            <button type="submit"
-              class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-200">
-              Iniciar sesión
-            </button>
-          </div>
           @if(hasError()){
-          <div role="alert" class="alert alert-error">
+          <div role="alert" class="bg-red-600 p-4 text-white flex rounded-lg justify-start gap-x-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none"
               viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>Error! Task failed successfully.</span>
-          </div>}
+            <span>Compruebe los datos de inicio de sesion</span>
+          </div>
+          }
+
+
+          <div>
+            <button type="submit"
+              class="bg-green-600 w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-200">
+              Iniciar sesión
+            </button>
+          </div>
         </form>
 
-        <div class="mt-6">
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-300"></div>
-            </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-white text-gray-500">¿No tienes una cuenta?</span>
-            </div>
-          </div>
 
-          <div class="mt-4">
-            <a href="#"
-              class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-200">
-              Login
-            </a>
-          </div>
-        </div>
       </div>
 
       <div class="text-center mt-6 text-xs text-gray-500">
-        <p>© 2024 Wavelyx. Todos los derechos reservados.</p>
+        <p>© 2025 Wavelyx. Todos los derechos reservados.</p>
       </div>
     </div>
   </div>
