@@ -24,8 +24,15 @@ export class RoutingDirective {
   rutasIconos = [
     {
       nombre: 'Login',
-      url: 'auth/login',
+      url: '/auth/login',
       icon: 'assets/icons/usuario.png',
+      reqLoged: false,
+    },
+    {
+      nombre: 'Zona usuario',
+      url: '/zona-usuario',
+      icon: 'assets/icons/user-interface.png',
+      reqLoged: true,
     },
     // {
     //   nombre: 'Politica y privacidad',

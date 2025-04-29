@@ -62,13 +62,11 @@ export class UsuariosService {
   ];
 
   async findByEmail(email: string) {
-    // Busca en MongoDB (no en el array `this.users`)
     const usuario = await this.usuarioModel.findOne({ email }).exec();
 
     console.log("Usuario encontrado en DB:", usuario); // Para debug
 
     if (!usuario || usuario.borrado_suave) {
-      // Si no existe o está "borrado"
       return null;
     }
 

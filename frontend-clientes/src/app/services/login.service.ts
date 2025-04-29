@@ -8,33 +8,28 @@ import { sha256 } from 'js-sha256';
 })
 export class LoginService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/usuarios';
+  private apiUrl = 'http://localhost:3000/api/auth/login/usuario';
 
   constructor() {}
 
   login(email: string, password: string): Observable<any> {
     const hashedPassword = sha256(password);
 
-    // Obtener todos los usuarios y buscar coincidencia en el frontend
-    return this.http.get<any[]>(this.apiUrl).pipe(
-      map((users) => {
-        const user = users.find(
-          (u) => u.email === email && u.password_hash === hashedPassword
-        );
+    // Hacer la solicitud al backend para autenticar
+    return this.http.post<any>(this.apiUrl, { email, password }).pipe(
+      map((response) => {
+        if (response && response.access_token && response.user) {
+          // Almacenar el token en localStorage (o sessionStorage)
+          localStorage.setItem('access_token', response.access_token);
 
-        if (!user) {
-          console.log(hashedPassword);
-          throw new Error('Credenciales incorrectas');
+          // Retornar los datos del usuario y su token
+          return {
+            user: response.user,
+            token: response.access_token,
+          };
+        } else {
+          throw new Error('Token o datos del usuario no recibidos');
         }
-
-        return {
-          token: 'simulated-token-' + user.id, // Token simulado
-          user: {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-          },
-        };
       }),
       catchError(this.handleError)
     );

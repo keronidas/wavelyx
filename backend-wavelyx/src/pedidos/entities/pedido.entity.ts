@@ -1,23 +1,22 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Types } from 'mongoose';
-import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import mongoose, { Types } from "mongoose";
+import { Document } from "mongoose";
 
 @Schema()
 export class Pedido extends Document {
-
   @Prop({ type: String })
   pedido_id: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Usuario" })
   usuario_id: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Producto' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Producto" })
   compra_productos: string[];
 
   @Prop({ min: 0, type: Number })
   coste_total: number;
 
-  @Prop({ default: 'recepcionado', type: String })
+  @Prop({ default: "recepcionado", type: String })
   estado: string;
 
   @Prop({ type: String, minlength: 12 })
@@ -26,10 +25,10 @@ export class Pedido extends Document {
   @Prop({ type: Date, default: Date.now })
   fecha_pedido: Date;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Empleado' })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Empleado" })
   empleado_asignado: Types.ObjectId;
 
-  @Prop({ type: Boolean, default: 'false' })
+  @Prop({ type: Boolean, default: "false" })
   borrado_suave: false;
 }
 

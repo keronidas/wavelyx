@@ -16,17 +16,17 @@ export class NavigationComponent implements OnInit {
       {
         label: 'Home',
         icon: 'pi pi-home',
-        routerLink:'home'
+        routerLink: 'home',
       },
       {
         label: 'Pedidos',
         icon: 'pi pi-box',
-        routerLink:'pedidos'
+        routerLink: 'pedidos',
       },
       {
         label: 'Empleados',
         icon: 'pi pi-user',
-        routerLink: 'empleados'
+        routerLink: 'empleados',
       },
     ];
   }

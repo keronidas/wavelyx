@@ -1,32 +1,64 @@
+// login.component.ts
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  fb = inject(FormBuilder);
+  authService = inject(AuthService);
+  private router = inject(Router);
 
-  fb = inject(FormBuilder)
-  hasError = signal(false)
-  isPosting = signal(false)
+  hasError = signal(false);
+  isPosting = signal(false);
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      this.hasError.set(true);
-      setTimeout(() => {
-        this.hasError.set(false)
-      }, 2000);
+      this.showError();
       return;
     }
-    console.log(this.loginForm.value)
+
+    this.isPosting.set(true);
+
+    const { email, password } = this.loginForm.value;
+
+    this.authService.login(email!, password!).subscribe({
+      next: (response) => {
+        // Ahora, el backend devuelve 'access_token' en lugar de 'token'
+        if (response.access_token) {
+          localStorage.setItem('authToken', response.access_token); // Usa 'access_token'
+          localStorage.setItem('currentUser', JSON.stringify(response.user));
+          this.authService.setLoginSuccess();
+          console.log('Login exitoso');
+          this.router.navigate(['']);
+        } else {
+          this.showError();
+        }
+        this.isPosting.set(false);
+      },
+      error: (err) => {
+        console.error('Error al iniciar sesión:', err);
+        this.showError();
+        this.isPosting.set(false);
+      },
+    });
   }
 
+  private showError() {
+    this.hasError.set(true);
+    setTimeout(() => {
+      this.hasError.set(false);
+    }, 2000);
+  }
 }

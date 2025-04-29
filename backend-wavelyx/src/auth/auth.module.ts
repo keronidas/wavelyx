@@ -3,10 +3,12 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { UsuariosModule } from 'src/usuarios/usuarios.module';
+import { EmpleadosModule } from 'src/empleados/empleados.module';
 
 @Module({
   imports: [
     UsuariosModule,
+    EmpleadosModule,
     JwtModule.register({
       secret: 'JWT_SECRET', // usa variables de entorno en producción
       signOptions: { expiresIn: '1h' },

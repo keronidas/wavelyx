@@ -8,9 +8,15 @@
     </a>
     }
     <div class="flex flex-row items-justify justify-evenly gap-x-2">
-      @for(ruta of rutasIcono; track ruta){
+      @for(ruta of rutasIcono; track ruta) {
+      @if(isLoged() === false && ruta.reqLoged === false) {
       <img [src]="ruta.icon" alt="icono" [routerLink]="ruta.url" class="max-w-8 cursor-pointer" />
       }
+      @if(isLoged() === true && ruta.reqLoged === true) {
+      <img [src]="ruta.icon" alt="icono" [routerLink]="ruta.url" class="max-w-8 cursor-pointer" />
+      }
+      }
+
     </div>
   </div>
 </div>

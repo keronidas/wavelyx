@@ -1,40 +1,44 @@
+// auth.service.ts
 import { Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  // Cambiamos el nombre a isAuthenticated para evitar el conflicto
   isAuthenticated = signal<boolean>(
     localStorage.getItem('isLoggedIn') === 'true'
   );
 
-  constructor() {
-    this.loadStateFromLocalStorage(); // Asegura que el estado se cargue al inicio
+  constructor(private http: HttpClient) {
+    this.loadStateFromLocalStorage();
   }
 
-  // Método para iniciar sesión
-  login() {
-    this.isAuthenticated.set(true); // Cambiamos el estado de la señal a true
-    localStorage.setItem('isLoggedIn', 'true'); // Guardamos en localStorage
+  // Método de login real
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<any>('http://localhost:3000/api/auth/login/empleado', { email, password });
   }
 
-  // Método para cerrar sesión
+  // Al hacer login exitoso
+  setLoginSuccess() {
+    this.isAuthenticated.set(true);
+    localStorage.setItem('isLoggedIn', 'true');
+  }
+
   logout() {
-    this.isAuthenticated.set(false); // Cambiamos el estado de la señal a false
-    localStorage.setItem('isLoggedIn', 'false'); // Guardamos en localStorage
-    localStorage.removeItem('authToken'); // Opcional: Elimina el token de autenticación
-    localStorage.removeItem('currentUser'); // Opcional: Elimina los datos del usuario
+    this.isAuthenticated.set(false);
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
   }
 
-  // Método para verificar si el usuario está logueado
   get isLoggedIn() {
-    return this.isAuthenticated(); // Cambiamos aquí a la nueva propiedad
+    return this.isAuthenticated();
   }
 
-  // Para obtener el estado del usuario logueado desde localStorage
   loadStateFromLocalStorage() {
     const loggedInState = localStorage.getItem('isLoggedIn');
-    this.isAuthenticated.set(loggedInState === 'true'); // Inicializamos la señal con el valor en localStorage
+    this.isAuthenticated.set(loggedInState === 'true');
   }
 }

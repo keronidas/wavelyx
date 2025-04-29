@@ -13,7 +13,7 @@ export class Empleado extends Document {
   email: string;
 
   @Prop({ required: true, type: String })
-  password: string;
+  password_hash: string;
 
   @Prop({ required: true, type: String })
   rol: string[];

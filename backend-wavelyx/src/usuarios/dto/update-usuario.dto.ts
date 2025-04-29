@@ -16,7 +16,7 @@ export class UpdateUsuarioDto {
     @IsString()
     @MinLength(10)
     @IsOptional()
-    password_hash: string
+    password: string
 
     @IsOptional()
     @IsString()

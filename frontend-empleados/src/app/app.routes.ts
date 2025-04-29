@@ -5,11 +5,13 @@ import { EmpleadosComponent } from './pages/empleados/empleados.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './auth/pages/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { NoAuthGuard } from './guards/login.guard';
 
 export const routes: Routes = [
   {
     path: 'auth/login',
     component: LoginComponent,
+    canActivate: [NoAuthGuard],
   },
   {
     path: '',
