@@ -49,8 +49,8 @@ export class FilesController {
       throw new BadRequestException("Comprueba que es una imagen válida");
     }
 
-    const host = req.get("host"); 
-    const protocol = req.protocol; 
+    const host = req.get("host");
+    const protocol = req.protocol;
 
     const secureUrl = `${protocol}://${host}/api/files/product/${file.filename}`;
 

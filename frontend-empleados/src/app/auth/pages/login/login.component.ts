@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  fb = inject(FormBuilder);
-  authService = inject(AuthService);
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   hasError = signal(false);
@@ -30,14 +30,11 @@ export class LoginComponent {
     }
 
     this.isPosting.set(true);
-
     const { email, password } = this.loginForm.value;
-
     this.authService.login(email!, password!).subscribe({
       next: (response) => {
-        // Ahora, el backend devuelve 'access_token' en lugar de 'token'
         if (response.access_token) {
-          localStorage.setItem('authToken', response.access_token); // Usa 'access_token'
+          localStorage.setItem('authToken', response.access_token);
           localStorage.setItem('currentUser', JSON.stringify(response.user));
           this.authService.setLoginSuccess();
           console.log('Login exitoso');

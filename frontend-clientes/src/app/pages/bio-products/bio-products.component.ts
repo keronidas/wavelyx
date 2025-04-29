@@ -15,10 +15,16 @@ export class BioProductsComponent {
   private carritoDirective = inject(CarritoDirective);
   productos: Producto[] = [];
   private productoService = inject(ProductsService);
+  host = 'localhost:3000';
 
   ngOnInit(): void {
     this.productoService.getProductos().subscribe((data) => {
       this.productos = data;
+      const baseUrl = `${window.location.protocol}//${this.host}`;
+      this.productos.forEach((element) => {
+        element.imagen = `${baseUrl}${element.imagen}`;
+      });
+      console.log(this.productos);
     });
   }
 
@@ -29,6 +35,6 @@ export class BioProductsComponent {
       precio: product.precio,
       cantidad: 1,
     };
-    this.carritoDirective.addToCarrito(nuevoProducto)
+    this.carritoDirective.addToCarrito(nuevoProducto);
   }
 }

@@ -17,7 +17,10 @@ export class AuthService {
 
   // Método de login real
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>('http://localhost:3000/api/auth/login/empleado', { email, password });
+    return this.http.post<any>(
+      'http://localhost:3000/api/auth/login/empleado',
+      { email, password }
+    );
   }
 
   // Al hacer login exitoso
