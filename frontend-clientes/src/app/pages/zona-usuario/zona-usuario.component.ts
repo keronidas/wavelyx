@@ -15,17 +15,17 @@ export class ZonaUsuarioComponent implements OnInit {
   private router = inject(Router);
   private pedidoService = inject(PedidoService);
 
-  userPedidos: any[] = []; // Para almacenar los pedidos del usuario
+  userPedidos: any[] = [];
 
   ngOnInit(): void {
-    // Obtener y parsear el usuario desde el localStorage
+
     const currentUser = localStorage.getItem('currentUser');
-    const usuarioId = currentUser ? JSON.parse(currentUser).id : null; // Asegurarse de que es un objeto
+    const usuarioId = currentUser ? JSON.parse(currentUser).id : null;
 
     if (usuarioId) {
       this.pedidoService.getPedidosByUserId(usuarioId).subscribe({
         next: (pedidos) => {
-          this.userPedidos = pedidos; // Guardar los pedidos del usuario
+          this.userPedidos = pedidos; 
         },
         error: (error) => {
           console.error('Error al obtener los pedidos del usuario', error);

@@ -30,10 +30,10 @@ export class RegisterService {
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Error desconocido';
     if (error.error instanceof ErrorEvent) {
-      // Error del cliente
+
       errorMessage = `Error: ${error.error.message}`;
     } else {
-      // Error del servidor
+
       errorMessage = `Código: ${error.status}\nMensaje: ${
         error.error.message || error.message
       }`;

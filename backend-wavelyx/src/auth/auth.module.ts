@@ -10,7 +10,7 @@ import { EmpleadosModule } from 'src/empleados/empleados.module';
     UsuariosModule,
     EmpleadosModule,
     JwtModule.register({
-      secret: 'JWT_SECRET', // usa variables de entorno en producción
+      secret: 'JWT_SECRET', 
       signOptions: { expiresIn: '1h' },
     }),
   ],

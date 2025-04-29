@@ -1,4 +1,3 @@
-// register-user.component.ts
 import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -23,8 +22,10 @@ export class RegisterUserComponent implements OnInit {
   submitted = false;
   passwordMismatch = false;
   private registerService = inject(RegisterService);
+  private formBuilder = inject(FormBuilder);
+  private router = inject(Router);
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group(
@@ -47,7 +48,6 @@ export class RegisterUserComponent implements OnInit {
       { validator: this.passwordMatchValidator }
     );
 
-    // Escuchar cambios en las contraseñas
     this.registerForm.get('password')?.valueChanges.subscribe(() => {
       this.checkPasswords();
     });

@@ -24,7 +24,7 @@ export class PedidosService {
     nuevoPedido.fecha_pedido = new Date();
 
     if (!nuevoPedido.empleado_asignado) {
-      const empleados = await this.empleadosService.findAll(); // ya vienen filtrados
+      const empleados = await this.empleadosService.findAll(); 
       if (empleados.length > 0) {
         const randomIndex = Math.floor(Math.random() * empleados.length);
         nuevoPedido.empleado_asignado = empleados[randomIndex]

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PedidosService } from '../../services/pedidos.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -19,9 +19,13 @@ type Pedido = {
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './pedidos.component.html',
-  styleUrls: ['./pedidos.component.scss']
+  styleUrls: ['./pedidos.component.scss'],
 })
 export class PedidosComponent implements OnInit {
+  private pedidosService = inject(PedidosService);
+
+  constructor(){}
+
   pedidos: Pedido[] = [];
   filteredPedidos: Pedido[] = [];
   currentPage = 1;
@@ -41,22 +45,21 @@ export class PedidosComponent implements OnInit {
   estadosPermitidos: EstadosPermitidos = {
     recepcionado: ['preparando'],
     preparando: ['enviado'],
-    enviado: []
+    enviado: [],
   };
 
   estadoTextos: Record<EstadoPedido, string> = {
     recepcionado: 'Recepcionado',
     preparando: 'Preparando',
-    enviado: 'Enviado'
+    enviado: 'Enviado',
   };
 
   estadoColores: Record<EstadoPedido, string> = {
     recepcionado: 'bg-blue-100 text-blue-800',
     preparando: 'bg-yellow-100 text-yellow-800',
-    enviado: 'bg-green-100 text-green-800'
+    enviado: 'bg-green-100 text-green-800',
   };
 
-  constructor(private pedidosService: PedidosService) {}
   getMin(a: number, b: number): number {
     return Math.min(a, b);
   }
@@ -74,58 +77,72 @@ export class PedidosComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al cargar pedidos:', error);
-      }
+      },
     });
   }
 
   cambiarEstado(pedido: Pedido, nuevoEstado: EstadoPedido): void {
     if (!this.estadoValido(pedido.estado, nuevoEstado)) {
-      console.warn(`Transición no permitida: ${pedido.estado} → ${nuevoEstado}`);
+      console.warn(
+        `Transición no permitida: ${pedido.estado} → ${nuevoEstado}`
+      );
       return;
     }
 
     const estadoAnterior = pedido.estado;
     pedido.estado = nuevoEstado;
 
-    this.pedidosService.actualizarEstadoPedido(pedido._id, nuevoEstado).subscribe({
-      next: () => {
-        this.updateStats();
-        this.mostrarNotificacion(`Estado cambiado a ${this.estadoTextos[nuevoEstado]}`);
-      },
-      error: (err) => {
-        console.error('Error al actualizar estado:', err);
-        pedido.estado = estadoAnterior;
-        this.mostrarError('No se pudo cambiar el estado');
-      }
-    });
+    this.pedidosService
+      .actualizarEstadoPedido(pedido._id, nuevoEstado)
+      .subscribe({
+        next: () => {
+          this.updateStats();
+          this.mostrarNotificacion(
+            `Estado cambiado a ${this.estadoTextos[nuevoEstado]}`
+          );
+        },
+        error: (err) => {
+          console.error('Error al actualizar estado:', err);
+          pedido.estado = estadoAnterior;
+          this.mostrarError('No se pudo cambiar el estado');
+        },
+      });
   }
 
   estadoValido(estadoActual: string, nuevoEstado: EstadoPedido): boolean {
-    return this.estadosPermitidos[estadoActual as EstadoPedido]?.includes(nuevoEstado) ?? false;
+    return (
+      this.estadosPermitidos[estadoActual as EstadoPedido]?.includes(
+        nuevoEstado
+      ) ?? false
+    );
   }
 
   updateStats(): void {
     this.totalPedidos = this.pedidos.length;
-    this.recepcionado = this.pedidos.filter(p => p.estado === 'recepcionado').length;
-    this.preparando = this.pedidos.filter(p => p.estado === 'preparando').length;
-    this.enviado = this.pedidos.filter(p => p.estado === 'enviado').length;
+    this.recepcionado = this.pedidos.filter(
+      (p) => p.estado === 'recepcionado'
+    ).length;
+    this.preparando = this.pedidos.filter(
+      (p) => p.estado === 'preparando'
+    ).length;
+    this.enviado = this.pedidos.filter((p) => p.estado === 'enviado').length;
   }
 
   applyFilters(): void {
     let result = [...this.pedidos];
 
     if (this.estadoFilter) {
-      result = result.filter(p => p.estado === this.estadoFilter);
+      result = result.filter((p) => p.estado === this.estadoFilter);
     }
 
     if (this.fechaDesde) {
       const desdeDate = new Date(this.fechaDesde);
-      result = result.filter(p => new Date(p.fecha_pedido) >= desdeDate);
+      result = result.filter((p) => new Date(p.fecha_pedido) >= desdeDate);
     }
 
     if (this.fechaHasta) {
       const hastaDate = new Date(this.fechaHasta);
-      result = result.filter(p => new Date(p.fecha_pedido) <= hastaDate);
+      result = result.filter((p) => new Date(p.fecha_pedido) <= hastaDate);
     }
 
     this.filteredPedidos = result;
@@ -139,17 +156,21 @@ export class PedidosComponent implements OnInit {
   formatDate(dateString: string): string {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return isNaN(date.getTime()) ? '' : date.toLocaleDateString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
+    return isNaN(date.getTime())
+      ? ''
+      : date.toLocaleDateString('es-ES', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        });
   }
 
-  // Métodos para paginación
   get paginatedPedidos(): Pedido[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredPedidos.slice(startIndex, startIndex + this.itemsPerPage);
+    return this.filteredPedidos.slice(
+      startIndex,
+      startIndex + this.itemsPerPage
+    );
   }
 
   get totalPages(): number {
@@ -163,16 +184,14 @@ export class PedidosComponent implements OnInit {
   }
 
   get pages(): number[] {
-    return Array.from({length: this.totalPages}, (_, i) => i + 1);
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
   private mostrarNotificacion(mensaje: string): void {
-    // Implementar lógica de notificación (Toast, Snackbar, etc.)
     console.log(mensaje);
   }
 
   private mostrarError(mensaje: string): void {
-    // Implementar lógica de error
     console.error(mensaje);
   }
 }

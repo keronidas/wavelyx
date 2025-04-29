@@ -70,8 +70,8 @@ export class LoginUserComponent {
     return this.loginForm.controls;
   }
 
-  // Para verificar si está logueado
+
   get isLoggedIn() {
-    return this.authService.isAuthenticated(); // Cambiamos a isAuthenticated
+    return this.authService.isAuthenticated(); 
   }
 }

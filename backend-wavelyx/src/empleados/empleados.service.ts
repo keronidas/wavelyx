@@ -16,8 +16,8 @@ export class EmpleadosService {
   ) {}
 
   async create(createEmpleadoDto: CreateEmpleadoDto) {
-    // Generar hash de la contraseña
-    const saltRounds = 10; // Número de rondas de sal (10 es un buen balance entre seguridad y rendimiento)
+  
+    const saltRounds = 10; 
     const hashedPassword = await bcrypt.hash(
       createEmpleadoDto.password,
       saltRounds,
@@ -25,7 +25,7 @@ export class EmpleadosService {
 
     const newEmpleado = new this.empleadoModel({
       ...createEmpleadoDto,
-      password_hash: hashedPassword, // Guardamos el hash en lugar de la contraseña en texto plano
+      password_hash: hashedPassword, 
       fecha_ingreso: new Date(),
       borrado_suave: false,
       empleado_id: uuidv4(),

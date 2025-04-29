@@ -15,14 +15,13 @@ export class LoginService {
   login(email: string, password: string): Observable<any> {
     const hashedPassword = sha256(password);
 
-    // Hacer la solicitud al backend para autenticar
+
     return this.http.post<any>(this.apiUrl, { email, password }).pipe(
       map((response) => {
         if (response && response.access_token && response.user) {
-          // Almacenar el token en localStorage (o sessionStorage)
+
           localStorage.setItem('access_token', response.access_token);
 
-          // Retornar los datos del usuario y su token
           return {
             user: response.user,
             token: response.access_token,

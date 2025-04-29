@@ -1,5 +1,4 @@
-// auth.service.ts
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -7,15 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
+  private http = inject(HttpClient);
+
   isAuthenticated = signal<boolean>(
     localStorage.getItem('isLoggedIn') === 'true'
   );
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.loadStateFromLocalStorage();
   }
 
-  // Método de login real
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(
       'http://localhost:3000/api/auth/login/empleado',
@@ -23,7 +23,6 @@ export class AuthService {
     );
   }
 
-  // Al hacer login exitoso
   setLoginSuccess() {
     this.isAuthenticated.set(true);
     localStorage.setItem('isLoggedIn', 'true');

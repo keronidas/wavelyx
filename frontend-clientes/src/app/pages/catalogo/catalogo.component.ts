@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-catalogo',
   standalone: true,
   imports: [],
   templateUrl: './catalogo.component.html',
-  styleUrl: './catalogo.component.scss'
+  styleUrl: './catalogo.component.scss',
 })
 export class CatalogoComponent {
-
-  constructor(private router: Router) { }
+  private router = inject(Router);
+  constructor() {}
 }

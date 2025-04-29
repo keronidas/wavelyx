@@ -34,10 +34,6 @@ export class RoutingDirective {
       icon: 'assets/icons/user-interface.png',
       reqLoged: true,
     },
-    // {
-    //   nombre: 'Politica y privacidad',
-    //   url: '/politica-privacidad',
-    //   icon: 'assets/icons/politica-de-privacidad.png',
-    // },
+   
   ];
 }

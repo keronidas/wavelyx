@@ -26,10 +26,10 @@ export class HomeComponent implements OnInit {
   totalPedidos: number = 0;
   ingresosTotales: number = 0;
 
-  // Actividades recientes
+
   actividadesRecientes: any[] = [];
 
-  // Estado de carga
+
   isLoading: boolean = true;
 
   platformId = inject(PLATFORM_ID);
@@ -52,20 +52,20 @@ export class HomeComponent implements OnInit {
       pedidos: this.pedidosService.getPedidos()
     }).subscribe({
       next: ({ empleados, pedidos }) => {
-        // Procesar empleados
+
         this.totalEmpleados = empleados.length;
 
-        // Procesar pedidos
+
         this.totalPedidos = pedidos.length;
         this.pedidosRecepcionados = pedidos.filter(p => p.estado === 'recepcionado').length;
         this.pedidosPreparando = pedidos.filter(p => p.estado === 'preparando').length;
         this.pedidosEnviados = pedidos.filter(p => p.estado === 'enviado').length;
         this.ingresosTotales = pedidos.reduce((sum, pedido) => sum + (pedido.coste_total || 0), 0);
 
-        // Generar actividades recientes
+
         this.generarActividadesRecientes(pedidos);
 
-        // Inicializar gráfico con datos reales
+
         this.initChart();
 
         this.isLoading = false;

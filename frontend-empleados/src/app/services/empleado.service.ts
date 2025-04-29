@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-
 
 interface Empleado {
   id: string;
@@ -11,12 +10,13 @@ interface Empleado {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EmpleadoService {
   private apiUrl = `${environment.apiUrl}/empleados`;
-
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
+  
+  constructor() {}
 
   getEmpleados(): Observable<Empleado[]> {
     return this.http.get<Empleado[]>(this.apiUrl);

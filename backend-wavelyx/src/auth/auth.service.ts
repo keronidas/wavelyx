@@ -19,7 +19,7 @@ export class AuthService {
     loginDto: LoginDto,
   ): Promise<{ access_token: string; user: any } | null> {
     try {
-      // Verificación básica de los datos de entrada
+  
       if (!loginDto?.email || !loginDto?.password) {
         console.log("Email o contraseña no proporcionados");
         return null;
@@ -32,8 +32,8 @@ export class AuthService {
         return null;
       }
 
-      console.log("Contraseña recibida:", loginDto.password); // Para debug
-      console.log("Hash almacenado:", user.password_hash); // Para debug
+      console.log("Contraseña recibida:", loginDto.password); 
+      console.log("Hash almacenado:", user.password_hash); 
 
       const isBcryptHash =
         user.password_hash.startsWith("$2a$") ||
@@ -47,14 +47,14 @@ export class AuthService {
           user.password_hash,
         );
       } else {
-        // Asegurarnos de que la contraseña no es undefined
+       
         if (!loginDto.password) {
           console.log("No se recibió contraseña para comparación SHA-256");
           return null;
         }
 
         const sha256Hash = createHash("sha256")
-          .update(loginDto.password) // Asegurar que es string
+          .update(loginDto.password) 
           .digest("hex");
 
         passwordValid = sha256Hash === user.password_hash;
@@ -93,15 +93,15 @@ export class AuthService {
     loginDto: LoginDto,
   ): Promise<{ access_token: string; user: any } | null> {
     try {
-      // Verificación básica de los datos de entrada
+      
       if (!loginDto?.email || !loginDto?.password) {
         console.log("Email o contraseña no proporcionados");
         return null;
       }
 
       const employe = await this.employeService.findByEmail(loginDto.email);
-      console.log("Contraseña recibida:", loginDto.password); // Para debug
-      console.log("Hash almacenado:", employe?.password_hash); // Para debug
+      console.log("Contraseña recibida:", loginDto.password); 
+      console.log("Hash almacenado:", employe?.password_hash); 
 
       if (!employe || !employe.password_hash) {
         console.log("Usuario no encontrado o sin contraseña configurada");
@@ -120,14 +120,14 @@ export class AuthService {
           employe.password_hash,
         );
       } else {
-        // Asegurarnos de que la contraseña no es undefined
+        
         if (!loginDto.password) {
           console.log("No se recibió contraseña para comparación SHA-256");
           return null;
         }
 
         const sha256Hash = createHash("sha256")
-          .update(loginDto.password) // Asegurar que es string
+          .update(loginDto.password) 
           .digest("hex");
 
         passwordValid = sha256Hash === employe.password_hash;

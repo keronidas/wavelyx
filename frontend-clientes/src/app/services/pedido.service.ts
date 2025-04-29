@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PedidoService {
-  private apiUrl = 'http://localhost:3000/pedidos/usuario'; 
-
-  constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:3000/pedidos/usuario';
+  private http = inject(HttpClient);
+  constructor() {}
 
   getPedidosByUserId(usuario_id: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${usuario_id}`);

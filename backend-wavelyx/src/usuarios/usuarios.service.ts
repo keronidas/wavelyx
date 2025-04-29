@@ -57,14 +57,14 @@ export class UsuariosService {
     {
       id: 1,
       email: "test@example.com",
-      password: "$2b$10$xxxxx...", // hash generado con bcrypt
+      password: "$2b$10$xxxxx...", 
     },
   ];
 
   async findByEmail(email: string) {
     const usuario = await this.usuarioModel.findOne({ email }).exec();
 
-    console.log("Usuario encontrado en DB:", usuario); // Para debug
+    console.log("Usuario encontrado en DB:", usuario); 
 
     if (!usuario || usuario.borrado_suave) {
       return null;
