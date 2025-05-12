@@ -6,9 +6,12 @@ import { ZonaUsuarioComponent } from './pages/zona-usuario/zona-usuario.componen
 import { LayoutComponent } from './pages/layout/layout.component';
 import { BioProductsComponent } from './pages/bio-products/bio-products.component';
 import { AuthGuard } from './guards/auth.guard';
+import { PasarelaPagoComponent } from './pages/pasarela-pago/pasarela-pago.component';
+import { PagoGuard } from './guards/pago.guard';
 
 export const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./auth/auth.routes') },
+  { path: 'pago', component: PasarelaPagoComponent, canActivate: [PagoGuard] },
   {
     path: '',
     component: LayoutComponent,

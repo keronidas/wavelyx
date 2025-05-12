@@ -1,14 +1,13 @@
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { ImageCompareModule } from 'primeng/imagecompare';
 
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [],
+  imports: [ImageCompareModule],
+  styleUrl: './catalogo.component.css',
   templateUrl: './catalogo.component.html',
-  styleUrl: './catalogo.component.scss',
 })
 export class CatalogoComponent {
-  private router = inject(Router);
   constructor() {}
 }

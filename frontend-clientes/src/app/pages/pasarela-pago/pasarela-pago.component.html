@@ -1,0 +1,71 @@
+<div class="max-w-screen min-h-screen bg-[#C6F6D5] flex justify-center items-center p-16">
+    <div class="bg-white p-4 rounded-xl w-full max-w-6xl shadow-xl">
+        <h1 class="text-4xl font-bold mb-4">Productos</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @for (product of carrito(); track $index) {
+            <div class="border p-4 rounded-xl shadow flex flex-col gap-2">
+
+                <p class="text-2xl  font-semibold">
+                    @if(product.cantidad>1){
+                    <span>{{product.cantidad}} x</span>
+                    }
+                    <span class="capitalize">
+                        {{ product.nombre }}
+                    </span>
+                </p>
+
+                @if (product.detalles) {
+                <div class="flex justify-between text-blue-500 text-md">
+                    <span class="capitalize">{{ product.detalles.producto.nombre }}</span>
+                    <span class="px-2">{{ product.detalles.producto.precio }}€</span>
+                </div>
+                <div class="flex justify-between text-red-500 text-md">
+                    <span class="capitalize">{{ product.detalles.extras.nombre }}</span>
+                    <span class="px-2">{{ product.detalles.extras.precio }}€</span>
+                </div>
+                <div class="flex justify-between text-green-500 text-md">
+                    <span class="capitalize">{{ product.detalles.seguro.nombre }}</span>
+                    <span class="px-2">{{ product.detalles.seguro.precio }}€</span>
+                </div>
+                }
+
+                @if (product.imagen) {
+                <img [src]="product.imagen" class="w-40 h-40 object-cover rounded-md self-center" alt="Imagen" />
+                }
+
+                <div class="flex items-center space-x-2">
+                    <button (click)="updateQuantity(product.id, -1)"
+                        class="w-7 h-7 flex items-center justify-center rounded border border-gray-300 hover:bg-gray-100">
+                        -
+                    </button>
+                    <span class="w-5 text-center">{{ product.cantidad }}</span>
+                    <button (click)="updateQuantity(product.id, 1)"
+                        class="w-7 h-7 flex items-center justify-center rounded border border-gray-300 hover:bg-gray-100">
+                        +
+                    </button>
+                    <button (click)="removeItem(product.id)"
+                        class="ml-1 w-7 h-7 flex items-center justify-center rounded hover:bg-red-50 text-red-500">
+                        ✕
+                    </button>
+                </div>
+                <p class="text-end w-full text-xl font-semibold mt-2">
+                    {{ product.precio }} <span class="px-1">€</span>
+                </p>
+            </div>
+            }
+        </div>
+
+        <div class="flex justify-between items-center mt-6">
+            <p class="text-2xl font-bold">Total: {{ total() }}€</p>
+            <div class="flex gap-x-2">
+                <button class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition"
+                    (click)="goBack()">Volver
+                    atras</button>
+                <button class=" bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition">
+                    Pagar ahora
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

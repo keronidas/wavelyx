@@ -12,4 +12,5 @@ export class ProductsService {
   getProductos(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
+
 }

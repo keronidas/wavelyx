@@ -3,6 +3,7 @@ export interface CarritoProducto {
   nombre: string;
   precio: number;
   cantidad: number;
+  imagen?:string;
   detalles?: {
     producto: any;
     seguro: any;

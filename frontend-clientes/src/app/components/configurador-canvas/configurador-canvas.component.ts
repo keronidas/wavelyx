@@ -16,19 +16,21 @@ import { AmbientLight } from 'three';
 import { ProductosDirective } from '../../directives/productos-configurables.directive';
 import { OrbitControls } from '@avatsaev/three-orbitcontrols-ts';
 import { NgStyle } from '@angular/common';
-import { CarritoDirective } from '../../directives/carrito.directive';
 import { CarritoProducto } from '../../interfaces/producto-carrito.interface';
+import { CarritoService } from '../../services/carrito.service';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
 
 @Component({
   selector: 'configurador-canvas',
   standalone: true,
-  imports: [NgStyle],
+  imports: [NgStyle, Toast],
   templateUrl: './configurador-canvas.component.html',
-  providers: [ProductosDirective, CarritoDirective],
+  providers: [ProductosDirective, MessageService],
 })
 export class AppComponent implements OnInit, OnDestroy {
   private productosDirectiva = inject(ProductosDirective);
-  private carritoDirectiva = inject(CarritoDirective);
+  private carritoService = inject(CarritoService);
 
   @ViewChild('canvasContainer', { static: true }) canvasContainer!: ElementRef;
   renderer!: THREE.WebGLRenderer;
@@ -50,10 +52,19 @@ export class AppComponent implements OnInit, OnDestroy {
   private model: THREE.Group | null = null;
   private loader = new GLTFLoader();
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private messageService: MessageService
+  ) {
     this.calcularPrecioTotal();
   }
-
+  showSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Agregado con carrito',
+      detail: 'Producto agregado con exito al carrito',
+    });
+  }
   ngOnInit(): void {
     this.initThreeJS();
     this.cargarModeloInicial();
@@ -240,9 +251,9 @@ export class AppComponent implements OnInit, OnDestroy {
       },
     };
 
-    this.carritoDirectiva.addToCarrito(itemCarrito);
+    this.carritoService.addToCarrito(itemCarrito);
 
     // Opcional: Mostrar confirmación
-    alert(`${producto.nombre} agregado al carrito!`);
+    this.showSuccess();
   }
 }

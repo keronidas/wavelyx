@@ -1,32 +1,17 @@
-import {
-  Component,
-  ElementRef,
-  ViewChild,
-  inject,
-  computed,
-} from '@angular/core';
-
-import { CommonModule } from '@angular/common';
-import { CarritoProducto } from '../../interfaces/producto-carrito.interface';
-import { CartIconComponent } from '../cart-icon/cart-icon.component';
+import { Component, computed, inject } from '@angular/core';
 import { CarritoService } from '../../services/carrito.service';
 import { Router } from '@angular/router';
+import { CarritoProducto } from '../../interfaces/producto-carrito.interface';
 
 @Component({
-  selector: 'app-cart',
-  standalone: true,
-  imports: [CommonModule, CartIconComponent],
-  templateUrl: './cart.component.html',
+  selector: 'app-pasarela-pago',
+  imports: [],
+  templateUrl: './pasarela-pago.component.html',
 })
-export class CartComponent {
-  @ViewChild('cart') cartElement!: ElementRef;
-  @ViewChild('cartIcon') cartIconElement!: ElementRef;
-
+export class PasarelaPagoComponent {
   private carritoService = inject(CarritoService);
   private router = inject(Router);
-  isVisible = false;
   carrito = this.carritoService.carrito;
-
   total = computed(
     () =>
       Math.round(
@@ -36,17 +21,11 @@ export class CartComponent {
         ) * 100
       ) / 100
   );
-
-  toggleCartVisibility() {
-    this.isVisible = !this.isVisible;
-    this.cartElement.nativeElement.classList.toggle('hidden', !this.isVisible);
-    this.cartIconElement.nativeElement.classList.toggle(
-      'bg-green-600',
-      this.isVisible
-    );
+  constructor() {
+    console.log(this.carrito());
   }
-  goToPago() {
-    this.router.navigate(['/pago']);
+  goBack() {
+    this.router.navigate(['/home']);
   }
   updateQuantity(id: string, change: number) {
     this.carritoService.updateCarrito((items) => {
