@@ -1,13 +1,5 @@
-<div class="fixed top-0 right-2 h-12 w-12 flex justify-center items-center z-40" #cartIcon
-    (click)="toggleCartVisibility()">
-    <icon-cart></icon-cart>
-    <span *ngIf="carrito().length > 0"
-        class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-        {{ carrito().length }}
-    </span>
-</div>
-
-<div class="min-w-[400px] fixed top-12 right-2 z-40 shadow-2xl bg-white rounded-b-lg hidden" #cart>
+@if(carritoAbierto()){
+<div class="w-[350px] fixed  right-0 z-40 shadow-2xl bg-white rounded-b-lg" #cart>
     <div class="bg-green-600 p-4 text-center">
         <p class="text-2xl text-white">Carrito ({{ carrito().length }})</p>
     </div>
@@ -59,3 +51,4 @@
         </button>
     </div>
 </div>
+}

@@ -8,14 +8,13 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { CarritoProducto } from '../../interfaces/producto-carrito.interface';
-import { CartIconComponent } from '../cart-icon/cart-icon.component';
 import { CarritoService } from '../../services/carrito.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, CartIconComponent],
+  imports: [CommonModule],
   templateUrl: './cart.component.html',
 })
 export class CartComponent {
@@ -26,7 +25,7 @@ export class CartComponent {
   private router = inject(Router);
   isVisible = false;
   carrito = this.carritoService.carrito;
-
+  carritoAbierto = this.carritoService.carritoAbierto;
   total = computed(
     () =>
       Math.round(
@@ -36,15 +35,6 @@ export class CartComponent {
         ) * 100
       ) / 100
   );
-
-  toggleCartVisibility() {
-    this.isVisible = !this.isVisible;
-    this.cartElement.nativeElement.classList.toggle('hidden', !this.isVisible);
-    this.cartIconElement.nativeElement.classList.toggle(
-      'bg-green-600',
-      this.isVisible
-    );
-  }
   goToPago() {
     this.router.navigate(['/pago']);
   }

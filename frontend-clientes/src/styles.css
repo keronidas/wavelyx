@@ -1,7 +1,7 @@
+@import "primeicons/primeicons.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 .bg-morado{
     @apply bg-[#5b6ffb];
 }

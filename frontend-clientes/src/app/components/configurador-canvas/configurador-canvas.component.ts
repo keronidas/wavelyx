@@ -68,6 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initThreeJS();
     this.cargarModeloInicial();
+    window.addEventListener('resize', this.onWindowResize);
   }
 
   initThreeJS(): void {
@@ -108,7 +109,15 @@ export class AppComponent implements OnInit, OnDestroy {
     // Animación
     this.animate();
   }
+  onWindowResize = (): void => {
+    const width = window.innerWidth - 384;
+    const height = window.innerHeight - 48 - 80;
 
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+
+    this.renderer.setSize(width, height);
+  };
   configurarLuces(): void {
     for (let i = 0; i < 8; i++) {
       const light = new THREE.DirectionalLight(0xffffff, 1);
@@ -221,21 +230,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.precioTotal.set(total);
   }
 
-  onWindowResize(): void {
-    const width = window.innerWidth - 384;
-    const height = window.innerHeight - 48 - 80;
-
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-  }
-
   ngOnDestroy(): void {
-    window.removeEventListener('resize', this.onWindowResize.bind(this));
-    if (this.renderer) {
-      this.renderer.dispose();
-    }
+  window.removeEventListener('resize', this.onWindowResize);
+  if (this.renderer) {
+    this.renderer.dispose();
   }
+}
   agregarAlCarrito(): void {
     const { producto, seguro, extras } = this.seleccion();
 

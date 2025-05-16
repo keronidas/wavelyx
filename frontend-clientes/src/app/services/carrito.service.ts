@@ -1,4 +1,4 @@
-import { computed, effect, Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 import { CarritoProducto } from '../interfaces/producto-carrito.interface';
 
 @Injectable({
@@ -6,9 +6,21 @@ import { CarritoProducto } from '../interfaces/producto-carrito.interface';
 })
 export class CarritoService {
   private _carrito = signal<CarritoProducto[]>(this.loadInitialCart());
-
+  carritoAbierto = signal(false);
   carrito = this._carrito.asReadonly();
 
+  openCarrito() {
+    this.carritoAbierto.set(true);
+  }
+
+  closeCarrito() {
+    this.carritoAbierto.set(false);
+  }
+
+  toggleCarrito() {
+    this.carritoAbierto.set(!this.carritoAbierto());
+    console.log(`El carrito esta ${this.carritoAbierto()}`);
+  }
   constructor() {
     effect(() => {
       localStorage.setItem('carrito', JSON.stringify(this._carrito()));

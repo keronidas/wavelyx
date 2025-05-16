@@ -1,20 +1,25 @@
-<video src="assets/video/mountain.mp4" class="w-screen z-0 top-12 absolute object-cover" autoplay loop muted
-  style="height: calc(100vh - 48px);"></video>
-<div class="absolute  w-full flex flex-col justify-center items-center z-10 p-0">
-  <div class="w-[90%]  flex items-center justify-between space-y-8" style="height: calc(100vh - 48px);">
+<!-- Mostrar video solo en pantallas lg (>= 1024px) -->
+@if(isLargeScreen){
+<video src="assets/video/mountain.mp4" class="w-screen z-0 top-[56px] absolute object-cover" autoplay loop muted
+  style="height: calc(100vh - 56px);"></video>
+}
+
+<!-- Mostrar imagen en pantallas menores a lg -->
+@if(!isLargeScreen){
+<img src="assets/images/mountain.jpg" alt="Hero image" class="w-screen z-0 top-[56px] absolute object-cover"
+  style="height: calc(100vh - 56px);">
+}
+<div class="absolute w-full flex flex-col justify-center items-center z-10 p-0">
+  <div class=" flex items-center justify-between space-y-8" style="height: calc(100vh - 56px);">
     <div class="w-full flex flex-col justify-start items-start text-start">
-      <h1 class="text-[160px] font-bold text-white rounded-lg ">
+      <h1 class="text-4xl sm:text-6xl md:text-8xl lg:text-[160px] font-bold text-white rounded-lg">
         <span class="capitalize">Wyve</span><span class="">Lyx</span>
       </h1>
       <ngx-typed-js
-        [strings]="['Tecnología sumergible' , 'Contra la obsolescencia programada', 'Tecnologia por un mañana','Unete al cambio']"
+        [strings]="['Tecnología sumergible', 'Contra la obsolescencia programada', 'Tecnologia por un mañana', 'Unete al cambio']"
         [showCursor]="false">
-        <h1 class="typing text-4xl text-white min-h-[40px]"></h1>
+        <h1 class="typing text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white min-h-[40px] md:mt-5 lg:mt-10"></h1>
       </ngx-typed-js>
     </div>
-
-
-
-
   </div>
 </div>

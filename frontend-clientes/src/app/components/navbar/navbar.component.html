@@ -1,22 +1,58 @@
-<div class="w-full fixed flex justify-center items-center shadow-lg z-30 bg-white h-12">
-  <div class="w-full flex flex-row justify-evenly items-center">
+<div class="w-full fixed shadow-lg z-30 bg-white ">
+  <div class="w-full flex flex-row justify-between items-center">
     <img src="assets/images/logo.svg" alt="logo" class="h-12" />
-    @for(ruta of rutasPagina; track ruta){
-    <a [routerLink]="ruta.url" RouterLinkActive="underline"
-      class="text-slate-800 text-md font-semibold uppercase hover:underline hover:decoration-2 hover:decoration-slate-800 hover:underline-offset-8 active:underline active:decoration-2 active:decoration-slate-800 active:underline-offset-8">
-      {{ ruta.nombre }}
-    </a>
-    }
-    <div class="flex flex-row items-justify justify-evenly gap-x-2">
-      @for(ruta of rutasIcono; track ruta) {
-      @if(isLoged() === false && ruta.reqLoged === false) {
-      <img [src]="ruta.icon" alt="icono" [routerLink]="ruta.url" class="max-w-8 cursor-pointer" />
-      }
-      @if(isLoged() === true && ruta.reqLoged === true) {
-      <img [src]="ruta.icon" alt="icono" [routerLink]="ruta.url" class="max-w-8 cursor-pointer" />
-      }
-      }
 
+    <!-- Botón de hamburguesa (solo visible en móvil) -->
+    <button (click)="toggleMenu()" class="md:hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- Menú normal (visible en desktop) -->
+    <div class="hidden md:flex w-full flex-row justify-evenly items-center">
+      @for(ruta of rutasPagina; track ruta){
+      <a [routerLink]="ruta.url" RouterLinkActive="underline"
+        class="text-slate-800  md:text-[0.6rem] lg:text-xl font-semibold uppercase hover:underline hover:decoration-2 hover:decoration-slate-800 hover:underline-offset-8 active:underline active:decoration-2 active:decoration-slate-800 active:underline-offset-8">
+        {{ ruta.nombre }}
+      </a>
+      }
+    </div>
+    <div class="flex gap-x-2">
+      <div class=" flex flex-row items-center justify-evenly gap-x-2 ">
+        @for(ruta of rutasIcono; track ruta) {
+        @if(isLoged() === false && ruta.reqLoged === false) {
+        <i class=" pi pi-users cursor-pointer" style="font-size: 1.5rem" [routerLink]="ruta.url"></i>
+        }
+        @if(isLoged() === true && ruta.reqLoged === true) {
+        <i class=" pi pi-id-card cursor-pointer" style="font-size: 1.5rem" [routerLink]="ruta.url"></i>
+        }
+        }
+      </div>
+      <div class="flex justify-center items-center z-40 p-4 hover:bg-green-600" #cartIcon (click)="toggleCarrito()"
+        [class.bg-green-600]="carritoOpen()">
+        <i class=" pi pi-shopping-cart cursor-pointer " style="font-size: 1.5rem"></i>
+        @if(carrito().length>0){
+        <span
+          class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+          {{ carrito().length }}
+        </span>
+        }
+      </div>
     </div>
   </div>
+
+  <!-- Menú desplegable para móvil -->
+  @if(menuOpen){
+  <div class="md:hidden fixed top-12 left-0 w-full bg-white shadow-lg z-20">
+    <div class="flex flex-col">
+      @for(ruta of rutasPagina; track ruta){
+      <a [routerLink]="ruta.url" (click)="toggleMenu()" RouterLinkActive="underline"
+        class="text-slate-800 text-md font-semibold uppercase p-4 hover:bg-gray-100">
+        {{ ruta.nombre }}
+      </a>
+      }
+    </div>
+  </div>
+  }
 </div>
