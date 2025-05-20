@@ -1,18 +1,23 @@
-<p-toast/>
-<div #canvasContainer class="fixed bottom-20 left-0"></div>
-<div class="flex flex-col bg-white justify-center absolute right-0 shadow min-h-full w-96 pb-16 ">
+<p-toast [breakpoints]="{ '400px': { width: '100%', right: '0', left: '0' } }" />
+<div #canvasContainer class="hidden md:block fixed bottom-20 left-0"></div>
+<div class="w-full flex justify-center items-center mt-10 md:hidden">
+    <img src="assets/images/image1.gif" alt="icono">
+</div>
+<div class="flex flex-col bg-white justify-center md:absolute  md:right-0 shadow md:min-h-full  md:w-96 md:pb-16 ">
     <div class=" border-b p-6 ">
-        <p class="text-2xl">Selecciona tu producto</p>
-        <div class="flex flex-col justify-evenly py-4 gap-y-6">
+        <p class="text-xl md:text-2xl">Selecciona tu producto</p>
+        <div class="flex flex-row md:flex-col justify-evenly md:py-4 md:gap-y-6">
             @for (item of productos; track $index) {
             <div class=" border border-gray-300 hover:shadow-lg p-2" (click)="seleccionarProducto(item)" [ngStyle]="{
                 'border-width': seleccion().producto === item ? '3px' : '1px',
                 'border-color': seleccion().producto === item ? '#2563eb' : '#d1d5db' 
               }">
-                <p class="p-2"><span class="capitalize">{{item.nombre}}</span></p>
-                <p class="px-2"><span class="font-semibold bg-gray-200 p-1 capitalize">{{item.categoria}}</span></p>
-                <p class="p-2"><span>Procesador: {{item.procesador}}</span></p>
-                <p class="p-2"><span>{{item.precio}}€</span></p>
+                <p class="px-2 md:p-2"><span class="text-sm md:text-[16px] capitalize">{{item.nombre}}</span></p>
+                <p class="px-2 md:p-2"><span
+                        class="text-sm md:text-[16px] font-semibold capitalize">{{item.categoria}}</span>
+                </p>
+                <p class="px-2 md:p-2"><span class="text-sm md:text-[16px]">{{item.procesador}}</span></p>
+                <p class="px-2 md:p-2"><span class="text-sm md:text-[16px]">{{item.precio}}€</span></p>
 
             </div>
             }
@@ -21,33 +26,42 @@
     <div class=" border-b p-6 ">
 
         <p class="text-2xl">Agrega un seguro</p>
-        <div class="flex flex-col justify-evenly py-4 gap-y-6">
+        <div class="grid grid-cols-2 md:flex md:flex-col justify-evenly md:py-4 md:gap-y-6">
             @for (item of seguros; track $index) {
-            <div class=" border border-gray-300 hover:shadow-lg p-2 " (click)="seleccionarSeguro(item)" [ngStyle]="{
-                'border-width': seleccion().seguro === item ? '3px' : '1px',
-                'border-color': seleccion().seguro === item ? '#2563eb' : '#d1d5db' 
-              }">
-                <p class="p-2"><span class="capitalize">{{item.nombre}}</span></p>
-                <p class="px-2"><span class="font-semibold bg-gray-200 p-1 capitalize">{{item.categoria}}</span></p>
-                <p class="p-2"><span>Procesador: {{item.descripcion}}</span></p>
-                <p class="p-2"><span>{{item.precio}}€</span></p>
-
+            <div class="border border-gray-300 hover:shadow-lg p-2 cursor-pointer" (click)="seleccionarSeguro(item)"
+                [ngStyle]="{
+        'border-width': seleccion().seguro === item ? '3px' : '1px',
+        'border-color': seleccion().seguro === item ? '#2563eb' : '#d1d5db'
+      }">
+                <p class="px-2 md:p-2">
+                    <span class="text-sm md:text-[16px] capitalize">{{item.nombre}}</span>
+                </p>
+                <p class="px-2 md:p-2">
+                    <span class="text-sm md:text-[16px] font-semibold capitalize">{{item.categoria}}</span>
+                </p>
+                <p class="px-2 md:p-2">
+                    <span class="text-sm md:text-[16px]">{{item.descripcion}}</span>
+                </p>
+                <p class="px-2 md:p-2">
+                    <span class="text-sm md:text-[16px]">{{item.precio}}€</span>
+                </p>
             </div>
             }
         </div>
+
     </div>
     <div class=" border-b p-6 ">
 
         <p class="text-2xl">Agrega extras</p>
-        <div class="flex flex-col justify-evenly py-4 gap-y-6">
+        <div class="grid grid-cols-2 md:flex md:flex-col justify-evenly md:py-4 md:gap-y-6">
             @for (item of extras; track $index) {
             <div class=" border border-gray-300 hover:shadow-lg p-2" (click)="seleccionarExtra(item)" [ngStyle]="{
                 'border-width': seleccion().extras === item ? '3px' : '1px',
                 'border-color': seleccion().extras === item ? '#2563eb' : '#d1d5db' 
               }">
                 <p class="p-2"><span class="capitalize">{{item.nombre}}</span></p>
-                <p class="px-2"><span class="font-semibold bg-gray-200 p-1 capitalize">{{item.categoria}}</span></p>
-                <p class="p-2"><span>Procesador: {{item.descripcion}}</span></p>
+                <p class="px-2"><span class="font-semibold capitalize">{{item.categoria}}</span></p>
+                <p class="p-2"><span>{{item.descripcion}}</span></p>
                 <p class="p-2"><span>{{item.precio}}€</span></p>
 
             </div>
@@ -55,15 +69,16 @@
         </div>
     </div>
 </div>
-<div class="fixed bottom-0 w-full h-20 shadow-lg border-t-2 border-gray-300 z-10 flex justify-between bg-white">
-    <div class="flex justify-center items-center px-8 gap-x-4 ">
-        <p><span>Modelo seleccionado: </span>
+<div
+    class="md:fixed md:bottom-0 md:w-full flex flex-col justify-evenly md:justify-between items-center md:flex-row text-sm md:text-[16px] h-28 md:h-20 shadow-lg border-t-2 border-gray-300 z-10   bg-white">
+    <div class="flex justify-center items-center md:px-8 gap-x-4 ">
+        <p><span class="hidden md:block">Modelo seleccionado: </span>
             <span class="px-2 capitalize  bg-gray-200 font-semibold p-1">{{seleccion().producto.nombre}}</span>
         </p>
-        <p><span>Seguro seleccionado: </span>
+        <p><span class="hidden md:block">Seguro seleccionado: </span>
             <span class="px-2 capitalize  bg-gray-200 font-semibold p-1">{{seleccion().seguro.nombre}}</span>
         </p>
-        <p> <span>Extra seleccionado: </span>
+        <p> <span class="hidden md:block">Extra seleccionado: </span>
             <span class="px-2 capitalize  bg-gray-200 font-semibold p-1">{{seleccion().extras.nombre}}</span>
         </p>
     </div>
@@ -72,7 +87,7 @@
             <p class="uppercase">Precio total</p>
             <p>{{precioTotal()}} <span>€</span></p>
         </div>
-        <button class="bg-blue-600 px-6 py-4 rounded text-white font-bold" (click)="agregarAlCarrito()">Agregar al
+        <button class="bg-blue-600 px-5 py-3 rounded text-white font-bold" (click)="agregarAlCarrito()">Agregar al
             carrito</button>
     </div>
 

@@ -66,9 +66,12 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
   ngOnInit(): void {
-    this.initThreeJS();
-    this.cargarModeloInicial();
-    window.addEventListener('resize', this.onWindowResize);
+    const isMdOrLarger = window.innerWidth >= 768;
+    if (isMdOrLarger) {
+      this.initThreeJS();
+      this.cargarModeloInicial();
+      window.addEventListener('resize', this.onWindowResize);
+    }
   }
 
   initThreeJS(): void {
@@ -231,11 +234,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-  window.removeEventListener('resize', this.onWindowResize);
-  if (this.renderer) {
-    this.renderer.dispose();
+    window.removeEventListener('resize', this.onWindowResize);
+    if (this.renderer) {
+      this.renderer.dispose();
+    }
   }
-}
   agregarAlCarrito(): void {
     const { producto, seguro, extras } = this.seleccion();
 
