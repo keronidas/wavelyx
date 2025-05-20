@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { CarritoService } from '../../services/carrito.service';
 import { Router } from '@angular/router';
 import { CarritoProducto } from '../../interfaces/producto-carrito.interface';
+import { PublicarPedidoService } from '../../services/publicar-pedido.service';
 
 @Component({
   selector: 'app-pasarela-pago',
@@ -11,6 +12,7 @@ import { CarritoProducto } from '../../interfaces/producto-carrito.interface';
 export class PasarelaPagoComponent {
   private carritoService = inject(CarritoService);
   private router = inject(Router);
+  private publicarPedidoService = inject(PublicarPedidoService);
   carrito = this.carritoService.carrito;
   total = computed(
     () =>
@@ -40,7 +42,14 @@ export class PasarelaPagoComponent {
         .filter(Boolean) as CarritoProducto[];
     });
   }
-
+  async enviarPedido() {
+    try {
+      await this.publicarPedidoService.publicarPedido();
+      alert('Pedido enviado con éxito');
+    } catch {
+      alert('Hubo un error al enviar el pedido');
+    }
+  }
   removeItem(id: string) {
     this.carritoService.removeItem(id);
   }

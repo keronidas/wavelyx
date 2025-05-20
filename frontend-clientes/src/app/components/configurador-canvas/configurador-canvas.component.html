@@ -1,32 +1,39 @@
 <p-toast [breakpoints]="{ '400px': { width: '100%', right: '0', left: '0' } }" />
 <div #canvasContainer class="hidden md:block fixed bottom-20 left-0"></div>
 <div class="w-full flex justify-center items-center mt-10 md:hidden">
-    <img src="assets/images/image1.gif" alt="icono">
+    <img [src]="imagenActual()" alt="icono" class="max-h-60">
 </div>
 <div class="flex flex-col bg-white justify-center md:absolute  md:right-0 shadow md:min-h-full  md:w-96 md:pb-16 ">
     <div class=" border-b p-6 ">
-        <p class="text-xl md:text-2xl">Selecciona tu producto</p>
-        <div class="flex flex-row md:flex-col justify-evenly md:py-4 md:gap-y-6">
+        <p class="text-xl md:text-2xl pb-2">Selecciona tu producto</p>
+        <div class="grid grid-cols-2 gap-2 md:flex md:flex-col justify-evenly md:py-4 md:gap-y-6">
             @for (item of productos; track $index) {
-            <div class=" border border-gray-300 hover:shadow-lg p-2" (click)="seleccionarProducto(item)" [ngStyle]="{
-                'border-width': seleccion().producto === item ? '3px' : '1px',
-                'border-color': seleccion().producto === item ? '#2563eb' : '#d1d5db' 
-              }">
-                <p class="px-2 md:p-2"><span class="text-sm md:text-[16px] capitalize">{{item.nombre}}</span></p>
-                <p class="px-2 md:p-2"><span
-                        class="text-sm md:text-[16px] font-semibold capitalize">{{item.categoria}}</span>
+            <div class="border border-gray-300 hover:shadow-lg p-2 cursor-pointer" (click)="seleccionarProducto(item)"
+                (click)="cambiarImagen(item.imagen)" [ngStyle]="{
+           'border-width': seleccion().producto === item ? '3px' : '1px',
+           'border-color': seleccion().producto === item ? '#2563eb' : '#d1d5db'
+         }">
+                <p class="px-2 md:p-2">
+                    <span class="text-sm md:text-[16px] capitalize">{{item.nombre}}</span>
                 </p>
-                <p class="px-2 md:p-2"><span class="text-sm md:text-[16px]">{{item.procesador}}</span></p>
-                <p class="px-2 md:p-2"><span class="text-sm md:text-[16px]">{{item.precio}}€</span></p>
-
+                <p class="px-2 md:p-2">
+                    <span class="text-sm md:text-[16px] font-semibold capitalize">{{item.categoria}}</span>
+                </p>
+                <p class="px-2 md:p-2">
+                    <span class="text-sm md:text-[16px]">{{item.procesador}}</span>
+                </p>
+                <p class="px-2 md:p-2">
+                    <span class="text-sm md:text-[16px]">{{item.precio}}€</span>
+                </p>
             </div>
             }
         </div>
+
     </div>
     <div class=" border-b p-6 ">
 
-        <p class="text-2xl">Agrega un seguro</p>
-        <div class="grid grid-cols-2 md:flex md:flex-col justify-evenly md:py-4 md:gap-y-6">
+        <p class="text-xl md:text-2xl pb-2">Agrega un seguro</p>
+        <div class="grid grid-cols-2 gap-2 md:flex md:flex-col justify-evenly md:py-4 md:gap-y-6">
             @for (item of seguros; track $index) {
             <div class="border border-gray-300 hover:shadow-lg p-2 cursor-pointer" (click)="seleccionarSeguro(item)"
                 [ngStyle]="{
@@ -51,9 +58,8 @@
 
     </div>
     <div class=" border-b p-6 ">
-
-        <p class="text-2xl">Agrega extras</p>
-        <div class="grid grid-cols-2 md:flex md:flex-col justify-evenly md:py-4 md:gap-y-6">
+        <p class="text-xl md:text-2xl pb-2">Agrega extras</p>
+        <div class="grid grid-cols-2 gap-2 md:flex md:flex-col justify-evenly md:py-4 md:gap-y-6">
             @for (item of extras; track $index) {
             <div class=" border border-gray-300 hover:shadow-lg p-2" (click)="seleccionarExtra(item)" [ngStyle]="{
                 'border-width': seleccion().extras === item ? '3px' : '1px',
@@ -70,17 +76,20 @@
     </div>
 </div>
 <div
-    class="md:fixed md:bottom-0 md:w-full flex flex-col justify-evenly md:justify-between items-center md:flex-row text-sm md:text-[16px] h-28 md:h-20 shadow-lg border-t-2 border-gray-300 z-10   bg-white">
+    class="md:fixed md:bottom-0 md:w-full flex flex-col md:flex-row justify-evenly md:justify-between items-center text-sm md:text-[16px] h-28 md:h-20 shadow-lg border-t-2 border-gray-300 z-10   bg-white">
     <div class="flex justify-center items-center md:px-8 gap-x-4 ">
-        <p><span class="hidden md:block">Modelo seleccionado: </span>
-            <span class="px-2 capitalize  bg-gray-200 font-semibold p-1">{{seleccion().producto.nombre}}</span>
-        </p>
-        <p><span class="hidden md:block">Seguro seleccionado: </span>
-            <span class="px-2 capitalize  bg-gray-200 font-semibold p-1">{{seleccion().seguro.nombre}}</span>
-        </p>
-        <p> <span class="hidden md:block">Extra seleccionado: </span>
-            <span class="px-2 capitalize  bg-gray-200 font-semibold p-1">{{seleccion().extras.nombre}}</span>
-        </p>
+        <div class="flex items-center gap-x-2"><span class="hidden md:block">Modelo seleccionado: </span>
+            <span
+                class="px-1 md:px-2 capitalize  bg-gray-200 font-semibold p-1 text-sm md:text-[16px]">{{seleccion().producto.nombre}}</span>
+        </div>
+        <div class="flex items-center gap-x-2"><span class="hidden md:block">Seguro seleccionado: </span>
+            <span
+                class="px-1 md:px-2 capitalize  bg-gray-200 font-semibold p-1 text-sm md:text-[16px]">{{seleccion().seguro.nombre}}</span>
+        </div>
+        <div class="flex items-center gap-x-2"> <span class="hidden md:block">Extra seleccionado: </span>
+            <span
+                class="px-1 md:px-2 capitalize  bg-gray-200 font-semibold p-1 text-sm md:text-[16px]">{{seleccion().extras.nombre}}</span>
+        </div>
     </div>
     <div class="flex justify-center items-center gap-x-6 pr-6">
         <div class="flex flex-col">

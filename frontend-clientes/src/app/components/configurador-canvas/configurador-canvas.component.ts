@@ -41,12 +41,15 @@ export class AppComponent implements OnInit, OnDestroy {
   productos = this.productosDirectiva.productos;
   extras = this.productosDirectiva.extras;
   seguros = this.productosDirectiva.seguros;
-
+  imagenActual = signal('assets/images/sky300.png');
   seleccion = signal({
     producto: this.productos[0],
     seguro: this.seguros[0],
     extras: this.extras[0],
   });
+  cambiarImagen(ruta: string): void {
+    this.imagenActual.set(ruta);
+  }
 
   precioTotal = signal(0);
   private model: THREE.Group | null = null;

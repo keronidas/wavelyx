@@ -1,57 +1,55 @@
-<div class="min-h-screen bg-green-50 p-4 md:p-8">
-  <button
-    class="absolute top-4 right-4 md:top-8 md:right-8 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md font-medium transition-colors mt-16"
-    (click)="exit()">
-    Salir
-  </button>
-
+<div class="min-h-screen bg-green-50 p-4 md:p-8 overflow-x-hidden">
   <!-- Header -->
-  <div class="mb-8">
-    <h1 class="text-3xl font-bold text-green-800">Mis Pedidos</h1>
-    <p class="text-green-600">Consulta el estado de tus pedidos anteriores</p>
+  <div class="mb-6 md:mb-8">
+    <h1 class="text-xl md:text-3xl font-bold text-green-800">Mis Pedidos</h1>
+    <p class="text-sm md:text-base text-green-600">Consulta el estado de tus pedidos anteriores</p>
   </div>
 
   <!-- Pedidos Table -->
-  <div class="bg-white rounded-lg shadow-md overflow-hidden">
-    <!-- Table Header -->
-    <div class="grid grid-cols-12 bg-green-700 text-white p-4 font-semibold">
-      <div class="col-span-6 md:col-span-4">Número de Pedido</div>
-      <div class="hidden md:block md:col-span-3">Fecha</div>
-      <div class="col-span-3 md:col-span-2 text-right">Coste Total</div>
-      <div class="col-span-3 md:col-span-3 text-right">Estado</div>
-    </div>
+  <div class="bg-white rounded-lg shadow-md overflow-x-auto">
+    <div class="min-w-[300px]"> <!-- Ancho mínimo para evitar compresión excesiva -->
+      <!-- Table Header -->
+      <div class="grid grid-cols-12 bg-green-700 text-white p-3 md:p-4 font-semibold">
+        <div class="text-xs md:text-base col-span-6 md:col-span-4 truncate">Número de Pedido</div>
+        <div class="text-xs md:text-base hidden md:block md:col-span-3">Fecha</div>
+        <div class="text-xs md:text-base col-span-3 md:col-span-2 text-right">Coste Total</div>
+        <div class="text-xs md:text-base col-span-3 md:col-span-3 text-right">Estado</div>
+      </div>
 
-    <!-- Pedidos List -->
-    <div class="divide-y divide-green-100 bg-green-50">
-      @for(pedido of userPedidos;track $index){
-
-      <div class="grid grid-cols-12 p-4 hover:bg-green-50 items-center">
-        <div class="col-span-6 md:col-span-4 font-medium text-green-900">{{ pedido.numero_pedido }}</div>
-        <div class="hidden md:block md:col-span-3 text-green-700">{{ pedido.fecha | date: 'dd/MM/yyyy - HH:mm a' }}
+      <!-- Pedidos List -->
+      <div class="divide-y divide-green-100 bg-green-50">
+        @for(pedido of userPedidos;track $index){
+        <div class="grid grid-cols-12 p-3 md:p-4 hover:bg-green-50 items-center">
+          <div class="text-sm md:text-base col-span-6 md:col-span-4 font-medium text-green-900 truncate">
+            {{ pedido.numero_pedido }}
+          </div>
+          <div class="hidden md:block md:col-span-3 text-green-700 text-sm md:text-base">
+            {{ pedido.fecha | date: 'dd/MM/yyyy - HH:mm a' }}
+          </div>
+          <div class="text-sm md:text-base col-span-3 md:col-span-2 text-right font-bold text-green-800">
+            ${{ pedido.coste_total }}
+          </div>
+          <div class="col-span-3 md:col-span-3 text-right">
+            <button
+              class="bg-green-600 hover:bg-green-700 text-white px-2 py-1 md:px-3 md:py-2 rounded-md text-xs md:text-sm font-medium transition-colors whitespace-nowrap">
+              Ver detalles
+            </button>
+          </div>
         </div>
-        <div class="col-span-3 md:col-span-2 text-right font-bold text-green-800">${{ pedido.coste_total }}</div>
-        <div class="col-span-3 md:col-span-3 text-right">
-          <button
-            class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-            Ver detalles
-          </button>
+        }
+        @empty {
+        <div class="text-sm md:text-base p-4 text-center text-green-700 font-semibold">
+          <p>No hay pedidos disponibles.</p>
         </div>
-
+        }
       </div>
-      }
-      @empty {
-      <div class=" p-4 text-center text-green-700 font-semibold">
-        <p>No hay pedidos disponibles.</p>
-      </div>
-      }
     </div>
+  </div>
 
-    <!-- Paginación -->
-    <div class="bg-green-50 p-4 flex justify-between items-center">
-      <div class="text-green-700 text-sm">
-        Mostrando {{ userPedidos.length }} pedidos
-      </div>
-
+  <!-- Paginación -->
+  <div class="bg-green-50 p-4 flex justify-between items-center">
+    <div class="text-green-700 text-sm">
+      Mostrando {{ userPedidos.length }} pedidos
     </div>
   </div>
 </div>
