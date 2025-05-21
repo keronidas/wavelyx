@@ -9,7 +9,7 @@ export class UpdatePedidoDto {
     usuario_id: string;
 
     @IsOptional()
-    @IsMongoId()
+    @IsString()
     compra_productos: string[];
 
     @IsOptional()

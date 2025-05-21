@@ -1,13 +1,14 @@
-import { IsBoolean, IsDate, IsMongoId, IsNumber, IsString, Min, MinLength } from 'class-validator';
+import { IsArray, IsBoolean, IsDate, IsMongoId, IsNumber, IsString, Min, MinLength } from 'class-validator';
 
 export class CreatePedidoDto {
 
   @IsMongoId()
   usuario_id: string;
 
-  @IsMongoId()
+  @IsString()
+  @IsArray()
   compra_productos: string[];
-  
+
   @IsNumber()
   @Min(0)
   coste_total: number;

@@ -1,3 +1,4 @@
+<p-toast [breakpoints]="{ '400px': { width: '100%', right: '0', left: '0' } }" />
 <div class="max-w-screen min-h-screen bg-[#C6F6D5] flex justify-center items-center p-16">
     <div class="bg-white p-4 rounded-xl w-full max-w-6xl shadow-xl">
         <h1 class="text-4xl font-bold mb-4">Productos</h1>
@@ -58,7 +59,7 @@
 
         <div class="flex justify-between items-center mt-6">
             <p class="text-2xl font-bold">Total: {{ total() }}€</p>
-            <div class="flex gap-x-2">
+            <div class="flex gap-y-2 gap-x-2 flex-col-reverse md:flex-row">
                 <button class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition"
                     (click)="goBack()">Volver
                     atras</button>

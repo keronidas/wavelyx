@@ -3,15 +3,17 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { sha256 } from 'js-sha256';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegisterService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/usuarios';
+  private url = environment.apiUrl;
+  private apiUrl = `${this.url}/usuarios`
 
-  constructor() {}
+  constructor() { }
 
   register(userData: any): Observable<any> {
     const userDataWithHashedPassword = {
@@ -34,9 +36,8 @@ export class RegisterService {
       errorMessage = `Error: ${error.error.message}`;
     } else {
 
-      errorMessage = `Código: ${error.status}\nMensaje: ${
-        error.error.message || error.message
-      }`;
+      errorMessage = `Código: ${error.status}\nMensaje: ${error.error.message || error.message
+        }`;
     }
     return throwError(() => new Error(errorMessage));
   }

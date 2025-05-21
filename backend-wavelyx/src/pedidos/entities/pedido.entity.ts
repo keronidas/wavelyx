@@ -10,7 +10,7 @@ export class Pedido extends Document {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Usuario" })
   usuario_id: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "Producto" })
+  @Prop([{ type: String }])
   compra_productos: string[];
 
   @Prop({ min: 0, type: Number })

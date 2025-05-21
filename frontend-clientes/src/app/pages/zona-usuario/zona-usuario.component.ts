@@ -25,12 +25,13 @@ export class ZonaUsuarioComponent implements OnInit {
     if (usuarioId) {
       this.pedidoService.getPedidosByUserId(usuarioId).subscribe({
         next: (pedidos) => {
-          this.userPedidos = pedidos; 
+          console.log('Pedidos recibidos:', pedidos);  // <-- aquí el console.log
+          this.userPedidos = pedidos;
         },
         error: (error) => {
           console.error('Error al obtener los pedidos del usuario', error);
         },
-      });
+      })
     } else {
       console.error('Usuario no encontrado en el localStorage');
     }

@@ -6,6 +6,7 @@ import { Producto } from '../../interfaces/producto.interface';
 import { CarritoService } from '../../services/carrito.service';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-bio-products',
@@ -17,8 +18,8 @@ export class BioProductsComponent {
   private carritoService = inject(CarritoService);
   productos: Producto[] = [];
   private productoService = inject(ProductsService);
-  host = 'localhost:3000';
-  constructor(private messageService: MessageService) {}
+  host = environment.host;
+  constructor(private messageService: MessageService) { }
   ngOnInit(): void {
     this.productoService.getProductos().subscribe((data) => {
       this.productos = data;

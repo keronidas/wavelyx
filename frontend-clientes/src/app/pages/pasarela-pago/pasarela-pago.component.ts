@@ -3,16 +3,19 @@ import { CarritoService } from '../../services/carrito.service';
 import { Router } from '@angular/router';
 import { CarritoProducto } from '../../interfaces/producto-carrito.interface';
 import { PublicarPedidoService } from '../../services/publicar-pedido.service';
-
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
 @Component({
   selector: 'app-pasarela-pago',
-  imports: [],
+  imports: [Toast],
   templateUrl: './pasarela-pago.component.html',
+  providers: [MessageService]
 })
 export class PasarelaPagoComponent {
   private carritoService = inject(CarritoService);
   private router = inject(Router);
   private publicarPedidoService = inject(PublicarPedidoService);
+  private messageService = inject(MessageService)
   carrito = this.carritoService.carrito;
   total = computed(
     () =>
@@ -25,6 +28,13 @@ export class PasarelaPagoComponent {
   );
   constructor() {
     console.log(this.carrito());
+  }
+  showSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Tramite realizado',
+      detail: 'Tramite realizado con exito',
+    });
   }
   goBack() {
     this.router.navigate(['/home']);
@@ -45,7 +55,7 @@ export class PasarelaPagoComponent {
   async enviarPedido() {
     try {
       await this.publicarPedidoService.publicarPedido();
-      alert('Pedido enviado con éxito');
+      this.showSuccess()
     } catch {
       alert('Hubo un error al enviar el pedido');
     }

@@ -11,7 +11,7 @@
       <!-- Table Header -->
       <div class="grid grid-cols-12 bg-green-700 text-white p-3 md:p-4 font-semibold">
         <div class="text-xs md:text-base col-span-6 md:col-span-4 truncate">Número de Pedido</div>
-        <div class="text-xs md:text-base hidden md:block md:col-span-3">Fecha</div>
+        <!-- <div class="text-xs md:text-base hidden md:block md:col-span-3">Fecha</div> -->
         <div class="text-xs md:text-base col-span-3 md:col-span-2 text-right">Coste Total</div>
         <div class="text-xs md:text-base col-span-3 md:col-span-3 text-right">Estado</div>
       </div>
@@ -20,19 +20,19 @@
       <div class="divide-y divide-green-100 bg-green-50">
         @for(pedido of userPedidos;track $index){
         <div class="grid grid-cols-12 p-3 md:p-4 hover:bg-green-50 items-center">
-          <div class="text-sm md:text-base col-span-6 md:col-span-4 font-medium text-green-900 truncate">
-            {{ pedido.numero_pedido }}
+          <div class="text-xs md:text-base col-span-6 md:col-span-4 font-medium text-green-900 truncate">
+            {{ pedido._id }}
           </div>
-          <div class="hidden md:block md:col-span-3 text-green-700 text-sm md:text-base">
+          <!-- <div class="hidden md:block md:col-span-3 text-green-700 text-sm md:text-base">
             {{ pedido.fecha | date: 'dd/MM/yyyy - HH:mm a' }}
-          </div>
+          </div> -->
           <div class="text-sm md:text-base col-span-3 md:col-span-2 text-right font-bold text-green-800">
             ${{ pedido.coste_total }}
           </div>
           <div class="col-span-3 md:col-span-3 text-right">
             <button
-              class="bg-green-600 hover:bg-green-700 text-white px-2 py-1 md:px-3 md:py-2 rounded-md text-xs md:text-sm font-medium transition-colors whitespace-nowrap">
-              Ver detalles
+              class="  text-green-600   md:px-3 md:py-2 rounded-md text-xs md:text-sm font-medium transition-colors whitespace-nowrap">
+              {{pedido.estado}}
             </button>
           </div>
         </div>

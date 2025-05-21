@@ -2,15 +2,18 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { sha256 } from 'js-sha256';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/auth/login/usuario';
+  private url = environment.apiUrl;
+  private apiUrl = `${this.url}/auth/login/usuario`
 
-  constructor() {}
+
+  constructor() { }
 
   login(email: string, password: string): Observable<any> {
     const hashedPassword = sha256(password);
@@ -39,9 +42,8 @@ export class LoginService {
     const errorMessage =
       error instanceof Error
         ? error.message
-        : `Código: ${error.status}\nMensaje: ${
-            error.error.message || error.message
-          }`;
+        : `Código: ${error.status}\nMensaje: ${error.error.message || error.message
+        }`;
 
     return throwError(() => new Error(errorMessage));
   }
